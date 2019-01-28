@@ -4,86 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>SimpleEvent</title>
 </head>
 <body>
     <div class="full-page">
-    <header>
-        <div class="header-box">
-            <nav class="top-navigation">
-                <ul>
-                    <li><a href="#0"><i class="fa fa-fw fa-home"></i>Home</a></li>
-                    <li><a href="#0"><i class="fa fa-fw fa-envelope"></i>Contact</a></li>
-                    <li><a href="#0"><i class="fas fa-sitemap"></i>Sitemap</a></li>
-                </ul>
-            </nav>
-            <div class ="header-title">
-                <h1>SimpleEvent</h1>
-                <h2>Your slogan goes here</h2>
-            </div>
-            <form class="search-form">
-                <input class="search-form__input">
-                <button class="search-form__button">
-                    Search
-                </button>
-            </form>
-        </div>       
+    <header class="header">
+        <nav class="top-navigation header__top-navigation">
+            <ul class="top-navigation__row">
+                <li class="top-navigation__list"><a class="top-navigation__link" href="#0"><i class="fa fa-fw fa-home"></i>Home</a></li>
+                <li class="top-navigation__list"><a class="top-navigation__link" href="#0"><i class="fa fa-fw fa-envelope"></i>Contact</a></li>
+                <li class="top-navigation__list"><a class="top-navigation__link" href="#0"><i class="fas fa-sitemap"></i>Sitemap</a></li>
+            </ul>
+        </nav>
+        <div class ="header-title header__header-title">
+            <h1>SimpleEvent</h1>
+            <h2>Your slogan goes here</h2>
+        </div>
+        <form class="search-form header__search-form">
+            <input class="search-form__input">
+            <button class="search-form__button">
+                Search
+            </button>
+        </form>       
     </header>
-    <nav>
-        <ul class="main-navigation">
-            <li><a href="#0">Home</a></li>
-            <li><a href="#0">Our products</a></li>
-            <li><a href="#0">About us</a></li>
-            <li><a href="#0">Portfolio</a></li>
-            <li><a href="#0">Contacts</a></li>
+    <nav class="main-navigation">
+        <ul class="main-navigation__row">
+            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Home</a></li>
+            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Our products</a></li>
+            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">About us</a></li>
+            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Portfolio</a></li>
+            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Contacts</a></li>
         </ul>
     </nav>
     <main class="main-content">
-        <article class="main-article">
-            <section>
-                <h3>Lorem ipsum</h3>
-                <div>
-                    <div class="ribbon">New!</div>
-                    <p>Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip 
-                        ex ea commodo consequat.
-                    </p>
-                    <button>
-                        More
-                    </button>
-                </div>
+        <article class="article main-content__article">
+            <section class="article__text article__text_new">
+                <h3 class="article__title">Lorem ipsum</h3>
+                
+                <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
+                    Lorem ipsum dolor sit amet, 
+                    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip 
+                    ex ea commodo consequat.
+                </p>
+                <button class="article__button">
+                    More
+                </button>
             </section>
-            <section>
-                <h3>Lorem ipsum</h3>
-                <div>
-                    <p>Lorem ipsum dolor sit amet, 
+            <section class="article__text">
+                <h3 class="article__title">Lorem ipsum</h3>
+                    <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
+                        Lorem ipsum dolor sit amet, 
                         consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
                         labore et dolore magna aliqua. Ut enim ad minim veniam, 
                         quis nostrud exercitation ullamco laboris nisi ut aliquip 
                         ex ea commodo consequat.
                     </p>
-                    <button>
+                    <button class="article__button">
                         More
                     </button>
-                </div>
             </section>
-            <section>
-                <h3>Lorem ipsum</h3>
-                <div>
-                    <p>Lorem ipsum dolor sit amet, 
+            <section class="article__text">
+                <h3 class="article__title">Lorem ipsum</h3>
+                    <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
+                        Lorem ipsum dolor sit amet, 
                         consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
                         labore et dolore magna aliqua. Ut enim ad minim veniam, 
                         quis nostrud exercitation ullamco laboris nisi ut aliquip 
                         ex ea commodo consequat.
                     </p>
-                    <button>
+                    <button class="article__button">
                         More
                     </button>
-                </div>
             </section>
         </article>
         <aside>
