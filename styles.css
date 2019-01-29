@@ -22,7 +22,7 @@ body {
     }
 }
 
-@media only screen and (max-width: 1601px) {
+@media only screen and (min-width: 1601px) {
     .full-page__page-width {
         max-width: 900px;    
     }
