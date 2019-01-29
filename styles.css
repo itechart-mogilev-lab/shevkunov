@@ -15,14 +15,14 @@ body {
 }
 @media only screen and (max-width: 411px) {
     .full-page__page-width {
-        width: 411px;    
+        width: 300px;    
     }
     .aside-content__sidebar {
         display: none;
     }
 }
 
-@media only screen and (min-width: 1601px) {
+@media (max-width: 2000px) and (min-width: 900px) {
     .full-page__page-width {
         max-width: 900px;    
     }
@@ -88,6 +88,7 @@ body {
   }
 
   .search-form__input {
+      outline: none;
       border-bottom-left-radius: 15px;
       border-top-left-radius: 15px;
       height: 40px;
@@ -242,7 +243,7 @@ body {
 .aside-content__img-block {
     background-color: #f17505;
     width: 100px;
-    height: 120px;
+    height: 100px;
     float: left;
     border-radius: 15px;
     padding-top: 10px;
