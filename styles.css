@@ -31,7 +31,7 @@ body {
     }
 }
 
-@media only screen and (min-width: 411px) {
+@media only screen and (min-width: 480px) {
     .main-content__article {
         margin-right: 15px;
     }
@@ -42,13 +42,16 @@ body {
         max-width: 900px;    
     }
 }
-.full-page__page-width {
-    position: relative;
+.page-width {
     padding-left: 20px;
     padding-right: 20px;
-    margin: 0 auto;
     font-family: "Calibri", sans-serif;
-    font-weight: lighter;
+    font-weight: lighter;    
+}
+
+.full-page__page-width {
+    position: relative;
+    margin: 0 auto;
 }
 
 .header {
@@ -133,15 +136,7 @@ body {
     list-style: none;
   }
 
-  .category-menu__row {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: flex-start;
-    list-style: none;    
-  }
-
-  .entries-menu__row {
+  .aside-menu__row {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -183,39 +178,31 @@ body {
         list-style: none;    
     }
   }
-  .category-menu__link {
+  .aside-menu__link {
     color: black;
     text-decoration: none;
     display: inline-block;    
   }
 
-  .entries-menu__link {
-    color: black;
-    text-decoration: none;
-    display: inline-block;    
-  }
-
-  .category-menu__list {
+.aside-menu__list {
     padding-bottom: 5px;
     padding-top: 5px;
     border-bottom: solid 1px #dfdedc;
   }
 
-  .entries-menu__list {
-    padding-bottom: 5px;
-    padding-top: 5px;
-    border-bottom: solid 1px #dfdedc;    
-  }
-
-  .main-navigation__link_active {
+.main-navigation__link_active {
       text-decoration: underline;
   }
-  .main-navigation li:not(:first-child):before :not(.main-navigation__icon):after {
+  .main-navigation li:not(:first-child):after {
     content: " | ";
 }
 
+.main-navigation li:last-child:after {
+    content: "";
+}
+
 @media only screen and (max-width: 600px){
-    .main-navigation li:not(:first-child):not(:last-child):before {
+    .main-navigation li:not(:first-child):after {
         content: "";
     }   
 }
@@ -278,11 +265,13 @@ body {
     text-align: justify;
 }
 
-.aside-content__sidebar {
+.sidebar {
     background-color: #ece8e9;
     padding: 10px;
+    border-radius: 15px;    
+}
+.aside-content__sidebar {
     margin-top: 10px;
-    border-radius: 15px;
 }
 
 .aside-content__img-block {
