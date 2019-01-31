@@ -7,7 +7,7 @@
     <meta name="keywords" content="HTML, CSS">
     <meta name="author" content="Vadim Shevkunov">
     <!--<link rel="stylesheet" href="reset.css">-->
-    <script src="script.js"></script>
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="shortcut icon" href="fav.png" type="image/png">
@@ -38,19 +38,21 @@
     </header>
     <div class="background-div header__background-div"></div>
     <nav class="main-navigation">
-        <ul class="main-navigation__row">
+        <ul class="main-navigation__row"> 
             <li class="main-navigation__list"><a class="main-navigation__icon" href="#0" onclick="myFunction();"><i class="main-navigation__icon_color fa fa-bars fa-2x"></i></a></li>
-            <li class="main-navigation__list"><a class="main-navigation__link main-navigation__link_active" href="#0">Home</a></li>
-            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Our products</a></li>
-            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">About us</a></li>
-            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Portfolio</a></li>
-            <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Contacts</a></li>            
+            <div class="main-navigation__menu">
+                <li class="main-navigation__list"><a class="main-navigation__link main-navigation__link_active" href="#0">Home</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Our products</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">About us</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Portfolio</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Contacts</a></li>
+            </div>            
         </ul>
     </nav>
     <main class="main-content">
         <article class="article main-content__article">
             <section class="article__text article__text_new">
-                <div class="ribbon">New</div>
+                <div class="article__ribbon">New</div>
                 <h3 class="article__title">Lorem ipsum</h3>
                 <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
                     Lorem ipsum dolor sit amet, 
@@ -93,7 +95,7 @@
         <aside class="aside-content">
         <div class="sidebar aside-content__sidebar">
             <h4 class="aside-content__about">ABOUT ME</h4>
-            <p class="aside-content__name"><div class="aside-content__img-block"><img class="aside-content__img" src="homer-simpson.jpeg" alt="homer"></div>Name Surname</p>
+            <p><div class="aside-content__img-block"><img class="aside-content__img" src="homer-simpson.jpeg" alt="homer"></div>Name Surname</p>
             <p>Lorem ipsum dolor sit amet, 
                 consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
                 labore et dolore magna aliqua.
@@ -130,6 +132,9 @@
         </aside>
     </main>
 </div>
-</div>    
+</div>
+<footer>
+    <script src="script.js"></script>
+</footer>    
 </body>
 </html>
