@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="HTML, CSS">
+    <meta name="author" content="Vadim Shevkunov">
+    <!--<link rel="stylesheet" href="reset.css">-->
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="shortcut icon" href="fav.png" type="image/png">
+    <title>SimpleEvent</title>
+</head>
+<body>
+    <div class="full-page">
+    <div class="page-width full-page__page-width">
+    <header class="header">
+        <nav class="top-navigation header__top-navigation">
+            <ul class="top-navigation__row">
+                <li class="top-navigation__list"><a class="top-navigation__link" href="#0"><i class="fa fa-fw fa-home"></i><span class="top-navigation__text">Home</span></a></li>
+                <li class="top-navigation__list"><a class="top-navigation__link" href="#0"><i class="fa fa-fw fa-envelope"></i><span class="top-navigation__text">Contact</span></a></li>
+                <li class="top-navigation__list"><a class="top-navigation__link" href="#0"><i class="fas fa-sitemap"></i><span class="top-navigation__text">Sitemap</span></a></li>
+            </ul>
+        </nav>
+        <div class ="header-title header__header-title">
+            <h1 class="header-title__name">SimpleEvent</h1>
+            <h2 class="header-title__slogan">Your slogan goes here</h2>
+        </div>
+        <form class="search-form header__search-form">
+            <input class="search-form__input">
+            <button class="search-form__button">
+                SEARCH
+            </button>
+        </form>
+          
+    </header>
+    <div class="background-div header__background-div"></div>
+    <nav class="main-navigation">
+        <ul class="main-navigation__row"> 
+            <li class="main-navigation__list"><a class="main-navigation__icon" href="#0" onclick="myFunction();"><i class="main-navigation__icon_color fa fa-bars fa-2x"></i></a></li>
+            <div class="main-navigation__menu">
+                <li class="main-navigation__list"><a class="main-navigation__link main-navigation__link_active" href="#0">Home</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Our products</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">About us</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Portfolio</a></li>
+                <li class="main-navigation__list"><a class="main-navigation__link" href="#0">Contacts</a></li>
+            </div>            
+        </ul>
+    </nav>
+    <main class="main-content">
+        <article class="article main-content__article">
+            <section class="article__text article__text_new">
+                <div class="article__ribbon">New</div>
+                <h3 class="article__title">Lorem ipsum</h3>
+                <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
+                    Lorem ipsum dolor sit amet, 
+                    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip 
+                    ex ea commodo consequat.
+                </p>
+                <button class="article__button">
+                    MORE
+                </button>
+            </section>
+            <section class="article__text">
+                <h3 class="article__title">Lorem ipsum</h3>
+                    <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
+                        Lorem ipsum dolor sit amet, 
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip 
+                        ex ea commodo consequat.
+                    </p>
+                    <button class="article__button">
+                        MORE
+                    </button>
+            </section>
+            <section class="article__text">
+                <h3 class="article__title">Lorem ipsum</h3>
+                    <p class="article__plain"><img class="article__img" src="img.jpg" alt="waterfall">
+                        Lorem ipsum dolor sit amet, 
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip 
+                        ex ea commodo consequat.
+                    </p>
+                    <button class="article__button">
+                        MORE
+                    </button>
+            </section>
+        </article>
+        <aside class="aside-content">
+        <div class="sidebar aside-content__sidebar">
+            <h4 class="aside-content__about">ABOUT ME</h4>
+            <p><div class="aside-content__img-block"><img class="aside-content__img" src="homer-simpson.jpeg" alt="homer"></div>Name Surname</p>
+            <p>Lorem ipsum dolor sit amet, 
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                labore et dolore magna aliqua.
+            </p>
+            <h4>CATEGORIES</h4>
+            <nav class="aside-menu">
+                <ul class="aside-menu__row">
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Business</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Art & Photography</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Communications</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Fashion</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Hobbies</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Models</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Music</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Real</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Sport</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Travel</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">Web design</a></li>
+                </ul>
+            </nav>
+            <h4>ENTRIES BY MONTH</h4>
+            <nav class="aside-menu">
+                <ul class="aside-menu__row">
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">August</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">July</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">June</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">May</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">April</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">March</a></li>
+                    <li class="aside-menu__list"><a class="aside-menu__link" href="#0">February</a></li>
+                </ul>
+            </nav>
+        </div>    
+        </aside>
+    </main>
+</div>
+</div>
+<footer>
+    <script src="script.js"></script>
+</footer>    
+</body>
+</html>
