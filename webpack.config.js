@@ -19,8 +19,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
-        options: {}
+        use: ["babel-loader", "eslint-loader"]
       }
     ]
   },
