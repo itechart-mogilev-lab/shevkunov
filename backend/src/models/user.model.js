@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
-const { passwordReg, phoneReg } = "../api/users/users.validations";
+const { passwordReg, phoneReg } = require("../api/users/users.validations");
 const userStatuses = require("../enums/users.status.enum");
 
 const schema = new mongoose.Schema(
@@ -56,7 +56,8 @@ const schema = new mongoose.Schema(
     status: { type: String, default: userStatuses.NotVerified },
     block_comment: { type: String },
     role: { type: String, required: true, lowercase: true },
-    googleId: { type: String, unique: true }
+    googleId: { type: String, unique: true },
+    verifyCode: { type: Number }
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
@@ -78,6 +79,7 @@ schema.pre("update", function(next) {
 });
 
 schema.post("save", function(error, doc, next) {
+  console.log(error.name + " " + error.code);
   if (error.name === "MongoError" && error.code === 11000) {
     next(new Error("User already exist"));
   } else {

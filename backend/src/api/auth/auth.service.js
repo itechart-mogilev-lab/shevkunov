@@ -51,37 +51,51 @@ async function registerUser(
   role,
   host
 ) {
-  const user = new User({
-    firstname,
-    secondname,
-    surname,
-    username,
-    email,
-    password,
-    phoneNumber,
-    status: usersStatus.NotVerified,
-    role
-  });
-  user.save();
-  const userObj = user.toObject();
-  const verifyToken = jwt.sign(
-    { id: userObj._id, role: userObj.role },
-    config.jwt.secret,
-    { expiresIn: "1h" }
-  );
-  mailService.gmailSend(
-    userObj.email,
-    mailForVerify(userObj.username, verifyToken, host)
-  );
-  return true;
+  try {
+    const rndCode = getRandomInt(1000, 9999);
+    const user = new User({
+      firstname,
+      secondname,
+      surname,
+      username,
+      email,
+      password,
+      phoneNumber,
+      status: usersStatus.NotVerified,
+      verifyCode: rndCode,
+      role
+    });
+    await user.save();
+    const userObj = user.toObject();
+    const verifyToken = jwt.sign(
+      { id: userObj._id, role: userObj.role },
+      config.jwt.secret,
+      { expiresIn: "1h" }
+    );
+    mailService.gmailSend(
+      userObj.email,
+      mailForVerify(userObj.firstname, rndCode, verifyToken, host)
+    );
+    return user;
+  } catch (err) {
+    throw err;
+  }
 }
 
-async function confirmationUser(verifyToken) {
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+async function confirmationUser({ confirmationCode }, verifyToken) {
   const decodeToken = jwt.verify(verifyToken, config.jwt.secret);
   const _id = decodeToken.id;
-  const user = await User.findByIdAndUpdate(_id, {
-    $set: { status: usersStatus.Verified }
-  });
+  const user = await User.findById(_id);
+  const userObj = user.toObject();
+  if (userObj.verifyCode !== confirmationCode) {
+    throw new Error("Verify code incorrect");
+  } else {
+    user.status = usersStatus.Verified;
+  }
   return true;
 }
 
