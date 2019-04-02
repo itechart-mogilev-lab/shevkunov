@@ -30,7 +30,7 @@ class Header extends Component {
 	}
 	render() {
 		const { classes } = this.props;
-		const { isAuthenticated, user } = this.props.auth;
+		const { isAuthenticated } = this.props.auth;
 		const authLinks = (
 			<Button color="inherit" onClick={this.onLogout.bind(this)}>
 				Logout
@@ -38,7 +38,7 @@ class Header extends Component {
 		);
 		const guestLinks = (
 			<>
-				<Link to="/">
+				<Link to="/register">
 					<Button color="inherit">Register</Button>
 				</Link>
 				<Link to="/login">

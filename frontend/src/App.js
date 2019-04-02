@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import Header from "./containers/Header/HeaderContainer";
 import SignInComponent from "./containers/Auth/SignInContainer";
+import RegisterComponent from "./containers/Auth/RegisterContainer";
 import Home from "./components/Home/HomeComponent";
 import "./styles/styles.css";
 
@@ -20,6 +21,7 @@ class App extends Component {
 						<Header />
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={SignInComponent} />
+						<Route exact path="/register" component={RegisterComponent} />
 					</>
 				</Router>
 			</Provider>

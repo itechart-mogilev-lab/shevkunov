@@ -3,6 +3,19 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./actionTypes";
 import setAuthToken from "../helpers/setAuthToken";
 import jwt_decode from "jwt-decode";
 
+export const registerUser = (user, history) => dispatch => {
+	axios
+		.post("/api/auth/register", user)
+		.then(res => history.push("/login"))
+		.catch(err => {
+			console.log(err);
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			});
+		});
+};
+
 export const loginUser = user => dispatch => {
 	axios
 		.post("/api/auth/login", user)
