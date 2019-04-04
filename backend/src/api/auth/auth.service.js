@@ -47,7 +47,7 @@ async function logout({ token }) {
 }
 
 async function registerUser(
-  { firstname, secondname, surname, username, email, password, phoneNumber },
+  { firstname, secondname, surname, email, password, phoneNumber },
   role,
   host
 ) {
@@ -57,12 +57,12 @@ async function registerUser(
       firstname,
       secondname,
       surname,
-      username,
       email,
       password,
       phoneNumber,
       status: usersStatus.NotVerified,
       verifyCode: rndCode,
+      numberOfTryies: 0,
       role
     });
     await user.save();
@@ -92,6 +92,15 @@ async function confirmationUser({ confirmationCode }, verifyToken) {
   const user = await User.findById(_id);
   const userObj = user.toObject();
   if (userObj.verifyCode !== confirmationCode) {
+    if (userObj.numberOfTryies !== 5) {
+      console.log(userObj.numberOfTryies);
+      user.numberOfTryies = userObj.numberOfTryies + 1;
+      console.log(user.numberOfTryies);
+    }
+    else {
+      User.findByIdAndDelete(_id);
+      throw new Error("Number of tries is over! You must reregister your account")
+    }
     throw new Error("Verify code incorrect");
   } else {
     user.status = usersStatus.Verified;
