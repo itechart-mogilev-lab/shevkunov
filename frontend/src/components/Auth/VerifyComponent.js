@@ -4,17 +4,12 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import CheckCircleOutlinedIcon from "@material-ui/icons/CheckCircleOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import classNames from "classnames";
 
 const styles = theme => ({
 	main: {
@@ -49,12 +44,11 @@ const styles = theme => ({
 	}
 });
 
-class SignInComponent extends Component {
+class VerifyComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "",
-			password: "",
+			confirmationCode: "",
 			errors: {}
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
@@ -69,11 +63,10 @@ class SignInComponent extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const user = {
-			email: this.state.email,
-			password: this.state.password
+		const confirmationCode = {
+			confirmationCode: this.state.confirmationCode
 		};
-		this.props.loginUser(user);
+		this.props.verifyUser(confirmationCode);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -91,38 +84,25 @@ class SignInComponent extends Component {
 				<CssBaseline />
 				<Paper className={classes.paper}>
 					<Avatar className={classes.avatar}>
-						<LockOutlinedIcon />
+						<CheckCircleOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Sign in
+						Confirm your account
 					</Typography>
 					<form className={classes.form} onSubmit={this.handleSubmit}>
 						<FormControl margin="normal" required fullWidth>
-							<InputLabel htmlFor="email">Email Address</InputLabel>
+							<InputLabel htmlFor="confirmationCode">
+								Confirmation code
+							</InputLabel>
 							<Input
-								id="email"
-								name="email"
-								autoComplete="email"
+								id="confirmationCode"
+								name="confirmationCode"
+								autoComplete="confirmationCode"
 								onChange={this.handleInputChange}
-								value={this.state.email}
+								value={this.state.confirmationCode}
 								autoFocus
 							/>
 						</FormControl>
-						<FormControl margin="normal" required fullWidth>
-							<InputLabel htmlFor="password">Password</InputLabel>
-							<Input
-								name="password"
-								type="password"
-								id="password"
-								autoComplete="current-password"
-								onChange={this.handleInputChange}
-								value={this.state.password}
-							/>
-						</FormControl>
-						<FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
-						/>
 						<Button
 							type="submit"
 							fullWidth
@@ -130,29 +110,17 @@ class SignInComponent extends Component {
 							color="primary"
 							className={classes.submit}
 						>
-							Sign in
+							Confirm
 						</Button>
 					</form>
-					<Button
-						variant="contained"
-						fullWidth
-						color="primary"
-						className={classes.button}
-					>
-						<FontAwesomeIcon
-							icon={faGoogle}
-							className={classNames(classes.leftIcon, classes.iconSmall)}
-						/>
-						Log in with Google
-					</Button>
 				</Paper>
 			</main>
 		);
 	}
 }
 
-SignInComponent.propTypes = {
+VerifyComponent.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignInComponent);
+export default withStyles(styles)(VerifyComponent);

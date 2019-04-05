@@ -6,7 +6,13 @@ import jwt_decode from "jwt-decode";
 export const registerUser = (user, history) => dispatch => {
 	axios
 		.post("/api/auth/register", user)
-		.then(res => history.push("/login"))
+		.then(res => {
+			const { verifyToken } = res.data;
+			console.log(verifyToken);
+			localStorage.setItem("verifyToken", verifyToken);
+			setAuthToken(verifyToken);
+			history.push("/confirmation");
+		})
 		.catch(err => {
 			console.log(err);
 			dispatch({
@@ -32,6 +38,17 @@ export const loginUser = user => dispatch => {
 				payload: err.response.data
 			});
 		});
+};
+
+export const verifyUser = confirmationCode => dispatch => {
+	const token = localStorage.getItem("verifyToken");
+	setAuthToken(token);
+	axios.post("/api/auth/confirmation", confirmationCode).catch(err => {
+		dispatch({
+			type: GET_ERRORS,
+			payload: err.response.data
+		});
+	});
 };
 
 export const logoutUser = history => dispatch => {
