@@ -76,7 +76,12 @@ async function registerUser(
       userObj.email,
       mailForVerify(userObj.firstname, rndCode, verifyToken, host)
     );
-    return user;
+    const { password: userPassword, ...userWithoutPassword } = userObj;
+
+    return {
+      ...userWithoutPassword,
+      verifyToken
+    };
   } catch (err) {
     throw err;
   }
@@ -93,17 +98,19 @@ async function confirmationUser({ confirmationCode }, verifyToken) {
   const userObj = user.toObject();
   if (userObj.verifyCode !== confirmationCode) {
     if (userObj.numberOfTryies !== 5) {
-      console.log(userObj.numberOfTryies);
       user.numberOfTryies = userObj.numberOfTryies + 1;
-      console.log(user.numberOfTryies);
+      await user.save();
+    } else {
+      User.findByIdAndDelete(_id).exec();
+      throw new Error(
+        "Number of tries is over! You must reregister your account"
+      );
     }
-    else {
-      User.findByIdAndDelete(_id);
-      throw new Error("Number of tries is over! You must reregister your account")
-    }
+    console.log(typeof confirmationCode);
     throw new Error("Verify code incorrect");
   } else {
     user.status = usersStatus.Verified;
+    await user.save();
   }
   return true;
 }
@@ -113,7 +120,7 @@ async function authSocial(data) {
   const token = jwt.sign({ id: data._id, role: data.role }, config.jwt.secret, {
     expiresIn: config.jwt.expiration
   });
-  return true;
+  return token;
 }
 
 async function registerCompany(

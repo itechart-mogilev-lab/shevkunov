@@ -57,8 +57,8 @@ const schema = new mongoose.Schema(
     block_comment: { type: String },
     role: { type: String, required: true, lowercase: true },
     googleId: { type: String, unique: true },
-    verifyCode: { type: Number },
-    numberOfTryies: {type: Number}
+    verifyCode: { type: String },
+    numberOfTryies: { type: Number }
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

@@ -27,7 +27,7 @@ module.exports.registerUser = (req, res, next) => {
     .then(result => {
       console.log(result);
       result
-        ? res.status(httpStatus.CREATED).json("created user")
+        ? res.status(httpStatus.CREATED).json(result)
         : res.status(httpStatus.BAD_REQUEST).json({ message: "BAD REQUEST" });
     })
     .catch(err => next(err));
@@ -35,7 +35,7 @@ module.exports.registerUser = (req, res, next) => {
 
 module.exports.confirmationUser = (req, res, next) => {
   authService
-    .confirmationUser(req.body, req.params.token)
+    .confirmationUser(req.body, req.get("Authorization"))
     .then(() => {
       res.status(httpStatus.OK).json("Verified");
     })
