@@ -29,15 +29,17 @@ function googleStrategy() {
     {
       clientID: config.googleAuth.clientId,
       clientSecret: config.googleAuth.clientSecret,
-      callbackURL: "/api/auth/google/redirect"
-    }, (accessToken, refreshToken, profile, done) => {
+      callbackURL: "/api/auth/google/redirect",
+      passReqToCallback: true
+    }, (req, accessToken, refreshToken, profile, done) => {
+      console.log(profile.id);
       User.findOne({googleId: profile.id}).then((user)=>{
         if (user) {
           return done(null, user);
         }
         else {
           new User({
-            username: profile.displayName, 
+            firstname: profile.displayName, 
             email: profile.emails[0].value,  
             status: usersStatus.Verified, 
             role: Roles.User,

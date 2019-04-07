@@ -40,6 +40,16 @@ export const loginUser = user => dispatch => {
 		});
 };
 
+export const googleLogin = (history) => dispatch => {
+	axios
+		.get("/api/auth/google")
+		.then(res => {
+			console.log(res.request.responseURL);
+			window.location=res.request.responseURL;
+		})
+
+}
+
 export const verifyUser = confirmationCode => dispatch => {
 	const token = localStorage.getItem("verifyToken");
 	setAuthToken(token);

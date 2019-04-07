@@ -59,6 +59,7 @@ class SignInComponent extends Component {
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
 	}
 
 	handleInputChange(e) {
@@ -74,6 +75,11 @@ class SignInComponent extends Component {
 			password: this.state.password
 		};
 		this.props.loginUser(user);
+	}
+
+	handleGoogleLogin(e){
+		e.preventDefault();
+		this.props.googleLogin(this.props.history);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -125,19 +131,19 @@ class SignInComponent extends Component {
 						/>
 						<Button
 							type="submit"
-							fullWidth
 							variant="contained"
+							fullWidth
 							color="primary"
 							className={classes.submit}
 						>
 							Sign in
 						</Button>
-					</form>
-					<Button
+						<Button
 						variant="contained"
 						fullWidth
 						color="primary"
-						className={classes.button}
+						className={classes.submit}
+						onClick={this.handleGoogleLogin}
 					>
 						<FontAwesomeIcon
 							icon={faGoogle}
@@ -145,6 +151,8 @@ class SignInComponent extends Component {
 						/>
 						Log in with Google
 					</Button>
+					</form>
+					
 				</Paper>
 			</main>
 		);

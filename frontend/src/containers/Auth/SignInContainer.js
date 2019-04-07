@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+import { loginUser, googleLogin } from "../../actions/authActions";
 import LoginComponent from "../../components/Auth/SignInComponent";
 
 const mapStateToProps = state => ({
@@ -10,6 +10,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		loginUser: user => {
 			dispatch(loginUser(user));
+		},
+		googleLogin: (history)=>{
+			dispatch(googleLogin());
 		}
 	};
 };
