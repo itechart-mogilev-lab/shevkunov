@@ -35,7 +35,7 @@ module.exports.registerUser = (req, res, next) => {
 
 module.exports.confirmationUser = (req, res, next) => {
   authService
-    .confirmationUser(req.body, req.get("Authorization"))
+    .confirmationUser(req.body, req.token)
     .then(() => {
       res.status(httpStatus.OK).json("Verified");
     })

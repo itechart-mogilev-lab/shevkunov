@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		verifyUser: confirmationCode => {
-			dispatch(verifyUser(confirmationCode));
+		verifyUser: (confirmationCode, history) => {
+			dispatch(verifyUser(confirmationCode, history));
 		}
 	};
 };

@@ -2,7 +2,6 @@ import axios from "axios";
 import { GET_ERRORS, SET_CURRENT_USER, LOGIN_SUCCESS } from "./actionTypes";
 import setAuthToken from "../helpers/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { push } from "connected-react-router";
 
 export const registerUser = (user, history) => dispatch => {
 	axios
@@ -59,10 +58,10 @@ export const googleLogin = history => dispatch => {
 	});
 };
 
-export const verifyUser = confirmationCode => dispatch => {
+export const verifyUser = (confirmationCode, history) => dispatch => {
 	const token = localStorage.getItem("verifyToken");
 	setAuthToken(token);
-	axios.post("/api/auth/confirmation", confirmationCode).catch(err => {
+	axios.post("/api/auth/confirmation", confirmationCode).then(history.push("/login")).catch(err => {
 		dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data

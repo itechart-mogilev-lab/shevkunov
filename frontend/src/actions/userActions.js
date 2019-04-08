@@ -1,6 +1,5 @@
 import { USER_GET_SUCCESS, GET_ERRORS } from "./actionTypes";
 import axios from "axios";
-import { push } from "connected-react-router";
 
 export const getProfileSuccess = profile => {
 	return {
@@ -11,13 +10,10 @@ export const getProfileSuccess = profile => {
 	};
 };
 
-var config = {
-	headers: { Authorization: "bearer " + localStorage.getItem("jwtToken") }
-};
 
 export const getCurrentProfile = history => dispatch => {
 	axios
-		.get("/api/auth/current", config)
+		.get("/api/auth/current")
 		.then(response => {
 			if (response.status !== 401) {
 				console.log("profile success");

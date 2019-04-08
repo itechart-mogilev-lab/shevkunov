@@ -4,10 +4,11 @@ var logger = require("morgan");
 
 var passport = require("./config/passport");
 var initializeDb = require("./config/mongodb");
+const bearerToken = require('express-bearer-token');
 var router = require("./routes");
 
 var app = express();
-
+app.use(bearerToken());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

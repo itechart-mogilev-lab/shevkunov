@@ -66,7 +66,7 @@ class VerifyComponent extends Component {
 		const confirmationCode = {
 			confirmationCode: this.state.confirmationCode
 		};
-		this.props.verifyUser(confirmationCode);
+		this.props.verifyUser(confirmationCode, this.props.history);
 	}
 
 	componentWillReceiveProps(nextProps) {

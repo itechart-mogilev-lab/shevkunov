@@ -1,8 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
-import RegisterSchema from "../RegisterSchema";
+import RegisterSchema from "../RegisterUserSchema";
 import RegisterUserForm from "./RegisterUserForm";
-import PropTypes from "prop-types";
 
 export default function RegisterComponentFormik(props) {
 	return (
@@ -13,7 +12,7 @@ export default function RegisterComponentFormik(props) {
 				email: "",
 				password: "",
 				confirmPassword: "",
-				phonenumber: ""
+				phoneNumber: ""
 			}}
 			validationSchema={RegisterSchema}
 			onSubmit={values => {
