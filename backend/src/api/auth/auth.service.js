@@ -18,8 +18,7 @@ async function authenticate({ email, password }) {
     }
 
     if (data === null) throw new Error("User or company not found");
-
-    let success = await data.comparePassword(password);
+    let success = data.comparePassword(password);
     if (success === false) throw new Error("Password is incorrect");
     if (data.status !== usersStatus.Verified)
       throw new Error("User or company is not verified");

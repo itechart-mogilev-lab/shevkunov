@@ -13,6 +13,7 @@ function jwtStrategy() {
   };
 
   const strategy = new Strategy(opts, async (token, done) => {
+    console.log(token);
     const user = await User.findOne({ _id: token.id });
     if (user) {
       return done(null, user);
@@ -25,40 +26,48 @@ function jwtStrategy() {
 }
 
 function googleStrategy() {
-  passport.use(new GoogleStrategy(
-    {
-      clientID: config.googleAuth.clientId,
-      clientSecret: config.googleAuth.clientSecret,
-      callbackURL: "/api/auth/google/redirect",
-      passReqToCallback: true
-    }, (req, accessToken, refreshToken, profile, done) => {
-      console.log(profile.id);
-      User.findOne({googleId: profile.id}).then((user)=>{
-        if (user) {
-          return done(null, user);
-        }
-        else {
-          new User({
-            firstname: profile.displayName, 
-            email: profile.emails[0].value,  
-            status: usersStatus.Verified, 
-            role: Roles.User,
-            googleId: profile.id
-          }).save().then((user)=>{
-            console.log(`new user: ${user}`);
-            done(null, user);
-          })
-        }
-      });
-    }
-  )
-  )
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: config.googleAuth.clientId,
+        clientSecret: config.googleAuth.clientSecret,
+        callbackURL: "/api/auth/google/redirect",
+        passReqToCallback: true
+      },
+      (req, accessToken, refreshToken, profile, done) => {
+        console.log(profile.id);
+        User.findOne({ googleId: profile.id }).then(user => {
+          if (user) {
+            return done(null, user);
+          } else {
+            new User({
+              firstname: profile.displayName,
+              email: profile.emails[0].value,
+              status: usersStatus.Verified,
+              role: Roles.User,
+              googleId: profile.id
+            })
+              .save()
+              .then(user => {
+                console.log(`new user: ${user}`);
+                done(null, user);
+              });
+          }
+        });
+      }
+    )
+  );
 }
 
 module.exports = {
   initialize: () => passport.initialize(),
   authenticate: () => passport.authenticate("jwt", { session: false }),
-  authGoogle: () => passport.authenticate("google" ,{session: false,scope: ['profile', 'email'], state: "myState"}),
+  authGoogle: () =>
+    passport.authenticate("google", {
+      session: false,
+      scope: ["profile", "email"],
+      state: "myState"
+    }),
   jwtStrategy,
   googleStrategy
 };

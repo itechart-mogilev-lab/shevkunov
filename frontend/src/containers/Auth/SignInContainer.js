@@ -8,10 +8,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		loginUser: user => {
-			dispatch(loginUser(user));
+		loginUser: (user, history) => {
+			dispatch(loginUser(user, history));
 		},
-		googleLogin: (history)=>{
+		googleLogin: history => {
 			dispatch(googleLogin());
 		}
 	};

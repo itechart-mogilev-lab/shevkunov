@@ -71,7 +71,6 @@ class RegisterComponent extends Component {
 		e.preventDefault();
 		const user = {
 			firstname: this.state.firstname,
-			secondname: this.state.secondname,
 			surname: this.state.surname,
 			email: this.state.email,
 			password: this.state.password,
@@ -109,17 +108,6 @@ class RegisterComponent extends Component {
 								autoComplete="firstname"
 								onChange={this.handleInputChange}
 								value={this.state.firstname}
-								autoFocus
-							/>
-						</FormControl>
-						<FormControl margin="normal" required fullWidth>
-							<InputLabel htmlFor="secondname">Secondname</InputLabel>
-							<Input
-								id="secondname"
-								name="secondname"
-								autoComplete="secondname"
-								onChange={this.handleInputChange}
-								value={this.state.secondname}
 								autoFocus
 							/>
 						</FormControl>

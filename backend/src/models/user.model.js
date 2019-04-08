@@ -6,9 +6,8 @@ const userStatuses = require("../enums/users.status.enum");
 
 const schema = new mongoose.Schema(
   {
-    firstname: { type: String,  lowercase: true },
-    secondname: { type: String,  lowercase: true },
-    surname: { type: String,  lowercase: true },
+    firstname: { type: String, lowercase: true },
+    surname: { type: String, lowercase: true },
     email: {
       type: String,
       unique: true,

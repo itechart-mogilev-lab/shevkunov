@@ -1,7 +1,8 @@
 import axios from "axios";
-import { GET_ERRORS, SET_CURRENT_USER } from "./actionTypes";
+import { GET_ERRORS, SET_CURRENT_USER, LOGIN_SUCCESS } from "./actionTypes";
 import setAuthToken from "../helpers/setAuthToken";
 import jwt_decode from "jwt-decode";
+import { push } from "connected-react-router";
 
 export const registerUser = (user, history) => dispatch => {
 	axios
@@ -14,7 +15,6 @@ export const registerUser = (user, history) => dispatch => {
 			history.push("/confirmation");
 		})
 		.catch(err => {
-			console.log(err);
 			dispatch({
 				type: GET_ERRORS,
 				payload: err.response.data
@@ -22,7 +22,17 @@ export const registerUser = (user, history) => dispatch => {
 		});
 };
 
-export const loginUser = user => dispatch => {
+export function loginSuccess(user) {
+	console.log(user);
+	return {
+		type: LOGIN_SUCCESS,
+		payload: {
+			profile: user
+		}
+	};
+}
+
+export const loginUser = (user, history) => dispatch => {
 	axios
 		.post("/api/auth/login", user)
 		.then(res => {
@@ -31,6 +41,8 @@ export const loginUser = user => dispatch => {
 			setAuthToken(token);
 			const decoded = jwt_decode(token);
 			dispatch(setCurrentUser(decoded));
+			dispatch(loginSuccess(res.data));
+			history.push("/profile");
 		})
 		.catch(err => {
 			dispatch({
@@ -40,15 +52,12 @@ export const loginUser = user => dispatch => {
 		});
 };
 
-export const googleLogin = (history) => dispatch => {
-	axios
-		.get("/api/auth/google")
-		.then(res => {
-			console.log(res.request.responseURL);
-			window.location=res.request.responseURL;
-		})
-
-}
+export const googleLogin = history => dispatch => {
+	axios.get("/api/auth/google").then(res => {
+		console.log(res.request.responseURL);
+		window.location = res.request.responseURL;
+	});
+};
 
 export const verifyUser = confirmationCode => dispatch => {
 	const token = localStorage.getItem("verifyToken");

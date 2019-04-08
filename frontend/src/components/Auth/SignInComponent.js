@@ -74,10 +74,10 @@ class SignInComponent extends Component {
 			email: this.state.email,
 			password: this.state.password
 		};
-		this.props.loginUser(user);
+		this.props.loginUser(user, this.props.history);
 	}
 
-	handleGoogleLogin(e){
+	handleGoogleLogin(e) {
 		e.preventDefault();
 		this.props.googleLogin(this.props.history);
 	}
@@ -139,20 +139,19 @@ class SignInComponent extends Component {
 							Sign in
 						</Button>
 						<Button
-						variant="contained"
-						fullWidth
-						color="primary"
-						className={classes.submit}
-						onClick={this.handleGoogleLogin}
-					>
-						<FontAwesomeIcon
-							icon={faGoogle}
-							className={classNames(classes.leftIcon, classes.iconSmall)}
-						/>
-						Log in with Google
-					</Button>
+							variant="contained"
+							fullWidth
+							color="primary"
+							className={classes.submit}
+							onClick={this.handleGoogleLogin}
+						>
+							<FontAwesomeIcon
+								icon={faGoogle}
+								className={classNames(classes.leftIcon, classes.iconSmall)}
+							/>
+							Log in with Google
+						</Button>
 					</form>
-					
 				</Paper>
 			</main>
 		);

@@ -13,6 +13,7 @@ router.post("/register/company", controller.registerCompany);
 router.post("/confirmation", controller.confirmationUser);
 router.get("/google", authGoogle());
 router.get("/google/redirect", authGoogle(), controller.authSocial);
+router.get("/current", permit(), controller.getCurrentUser);
 // router.post("/resend", controller.resendPost);
 
 module.exports = router;

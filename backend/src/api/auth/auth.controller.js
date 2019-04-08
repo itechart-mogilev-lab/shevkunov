@@ -51,13 +51,17 @@ module.exports.registerCompany = (req, res, next) => {
     .catch(err => next(err));
 };
 
-module.exports.authGoogle = (req,res)=>{
+module.exports.authGoogle = (req, res) => {
   res.status(httpStatus.PERMANENT_REDIRECT).json("Redirected");
-}
+};
 
 module.exports.authSocial = (req, res, next) => {
   authService
     .authSocial(req.user)
     .then(tokens => res.status(httpStatus.OK).json(tokens))
     .catch(err => next(err));
+};
+
+module.exports.getCurrentUser = (req, res) => {
+  res.json(req.user);
 };
