@@ -45,8 +45,10 @@ module.exports.confirmationUser = (req, res, next) => {
 module.exports.registerCompany = (req, res, next) => {
   authService
     .registerCompany(req.body, Role.Company)
-    .then(() => {
-      res.status(httpStatus.CREATED).json("Created");
+    .then(result => {
+      result
+        ? res.status(httpStatus.CREATED).json("created company")
+        : res.status(httpStatus.BAD_REQUEST).json("BAD REQUEST");
     })
     .catch(err => next(err));
 };

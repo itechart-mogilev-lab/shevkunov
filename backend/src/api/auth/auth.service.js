@@ -123,32 +123,43 @@ async function authSocial(data) {
 }
 
 async function registerCompany(
-  {
-    logo,
-    companyName,
-    discription,
-    address,
-    typesOfServices,
-    price,
-    email,
-    password,
-    phoneNumber
-  },
-  role
+  { name, description, address, email, password, services, rooms },
+  role,
+  host
 ) {
-  const company = new Company({
-    logo,
-    companyName,
-    discription,
-    address,
-    typesOfServices,
-    price,
-    email,
-    password,
-    phoneNumber,
-    role
-  });
-  return company.save().then(({ _id }) => Company.findById(_id));
+  try {
+    const price = 0.5;
+    const company = new Company({
+      name,
+      description,
+      address,
+      email,
+      password,
+      role,
+      services,
+      price,
+      rooms
+    });
+    await company.save();
+    const companyObj = company.toObject();
+    const verifyToken = jwt.sign(
+      { id: companyObj._id, role: companyObj.role },
+      config.jwt.secret,
+      { expiresIn: "1h" }
+    );
+    mailService.gmailSend(
+      userObj.email,
+      mailForVerify(companyObj.firstname, rndCode, verifyToken, host)
+    );
+    const { password: userPassword, ...userWithoutPassword } = companyObj;
+
+    return {
+      ...userWithoutPassword,
+      verifyToken
+    };
+  } catch (err) {
+    throw err;
+  }
 }
 
 module.exports = {

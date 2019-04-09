@@ -9,6 +9,7 @@ import VerifyComponent from "./containers/Auth/VerifyContainer";
 import ProfileComponent from "./containers/Profile/ProfileContainer";
 import DashBoard from "./components/Profile/ProfileDashboardComponent";
 import Home from "./components/Home/HomeComponent";
+import RegisterCompanyComponent from "./components/Auth/RegisterCompany/RegisterCompanyFormik";
 import "./styles/styles.css";
 
 class App extends Component {
@@ -29,6 +30,11 @@ class App extends Component {
 							<Route exact path="/confirmation" component={VerifyComponent} />
 							<Route exact path="/profile" component={ProfileComponent} />
 							<Route exact path="/dashboard" component={DashBoard} />
+							<Route
+								exact
+								path="/register-company"
+								component={RegisterCompanyComponent}
+							/>
 						</Switch>
 					</>
 				</Router>

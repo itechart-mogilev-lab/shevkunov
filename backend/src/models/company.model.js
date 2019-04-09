@@ -1,71 +1,105 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const validator = require('validator');
-const { passwordReg, phoneReg } = '../api/users/users.validations';
+const validator = require("validator");
+const { passwordReg, phoneReg } = "../api/users/users.validations";
+require("mongoose-double")(mongoose);
 const userStatuses = require("../enums/users.status.enum");
+const SchemaTypes = mongoose.Schema.Types;
+var mongoosePaginate = require("mongoose-paginate");
 
 const schema = new mongoose.Schema(
   {
-    logo: {type: String, required: false, unique: false },
-    companyName: { type: String, required: true, unique: true, lowercase: true },
-    discription: { type: String, required: false, unique: false },
-    address: {
-      fullAddress: { type: String },
-      coordinates: {
-        coordinateX: { type: Number },
-        coordinateY: { type: Number }
-      }
+    // logoUrl: {type: String, required: true, get: v => `${root}${v}`},
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: nameValidator
     },
-    typesOfServices: [
-      {
-        name: {type: String, require: true},
-        price: {type: Number, required: true}
-      }
-    ], 
+    description: {
+      type: String,
+      required: true,
+      minlength: 50,
+      maxlength: 1000
+    },
+    address: {
+      country: { type: String, require: true },
+      city: { type: String, require: true },
+      other: { type: String, require: true }
+    },
     email: {
       type: String,
+      required: true,
       unique: true,
-      required: [true, 'Email is required!'],
-      trim: true,
-      lowercase: true,
       validate: {
-          validator(email) {
-              return validator.isEmail(email);
-          },
-          message: '{VALUE} is not a valid email!',
-      },
-  },
-  password: {
-    type: String,
-    required: [true, 'Password is required!'],
-    trim: true,
-    minlength: [6, 'Password need to be longer!'],
-    validate: {
-        validator(password) {
-            return passwordReg.test(password);
+        validator(email) {
+          return validator.isEmail(email);
         },
-        message: '{VALUE} is not a valid password!',
+        message: "{VALUE} is not a valid email!"
+      }
     },
-  },
-  phoneNumber: {
-    type: String,
-    trim: true,
-    unique: true,
-    required: true,
-    validate: {
-      validator(phoneNumber) {
-          return phoneReg.test(phoneNumber);
+    rooms: {
+      toilet: {
+        price: { type: SchemaTypes.Double, required: true, default: 0 },
+        time: { type: Number, required: true, default: 0 }
       },
-      message: '{VALUE} is not a valid phone number!',
-  },
-  },
-    status: { type: String, default: userStatuses.NotVerified }, 
-    role: { type: String, required: true, lowercase: true }
+      standart: {
+        price: { type: SchemaTypes.Double, required: true, default: 0 },
+        time: { type: Number, required: true, default: 0 }
+      },
+      big: {
+        price: { type: SchemaTypes.Double, required: true, default: 0 },
+        time: { type: Number, required: true, default: 0 }
+      }
+    },
+    services: [
+      {
+        name: { type: String, required: true },
+        coefficient: { type: SchemaTypes.Double, required: true }
+      }
+    ],
+    workPlan: [
+      {
+        day: { type: String, require: true },
+        workHours: {
+          start: { type: String, require: true },
+          end: { type: String, require: true }
+        },
+        lunchHours: {
+          start: { type: String, require: true },
+          end: { type: String, require: true }
+        }
+      }
+    ],
+    price: { type: SchemaTypes.Double, required: true },
+    role: { type: String, required: true, lowercase: true },
+    status: { type: Number, required: true, default: userStatuses.NotVerified },
+    ratting: { type: SchemaTypes.Double, default: 0 },
+    password: {
+      type: String,
+      required: true,
+      select: false,
+      validate: {
+        validator(password) {
+          return passwordReg.test(password);
+        },
+        message: "{VALUE} is not a valid password!"
+      }
+    },
+    block_comment: { type: String },
+    verifyCode: { type: String },
+    numberOfTryies: { type: Number }
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
   }
 );
+
+schema.index({
+  name: "text",
+  "address.country": "text",
+  "services.name": "text"
+});
 
 schema.pre("save", function(next) {
   bcrypt.hash(this.password, 10, (err, hash) => {

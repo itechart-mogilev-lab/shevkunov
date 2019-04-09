@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import RegisterSchema from "../RegisterUserSchema";
+import RegisterSchema from "./RegisterUserSchema";
 import RegisterUserForm from "./RegisterUserForm";
 
 export default function RegisterComponentFormik(props) {

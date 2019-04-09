@@ -79,7 +79,6 @@ function RegisterForm(props) {
 							onBlur={handleBlur}
 							aria-describedby="component-error-text"
 							error={touched.firstname && Boolean(errors.firstname)}
-							autoFocus
 						/>
 						{Boolean(errors.firstname) && (
 							<FormHelperText id="component-error-text">
@@ -97,7 +96,6 @@ function RegisterForm(props) {
 							onBlur={handleBlur}
 							error={touched.surname && Boolean(errors.surname)}
 							aria-describedby="component-error-text"
-							autoFocus
 						/>
 						{Boolean(errors.surname) && (
 							<FormHelperText id="component-error-text">
@@ -115,7 +113,6 @@ function RegisterForm(props) {
 							onBlur={handleBlur}
 							error={touched.email && Boolean(errors.email)}
 							aria-describedby="component-error-text"
-							autoFocus
 						/>
 						{Boolean(errors.email) && (
 							<FormHelperText id="component-error-text">
