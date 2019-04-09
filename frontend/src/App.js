@@ -9,7 +9,7 @@ import VerifyComponent from "./containers/Auth/VerifyContainer";
 import ProfileComponent from "./containers/Profile/ProfileContainer";
 import DashBoard from "./components/Profile/ProfileDashboardComponent";
 import Home from "./components/Home/HomeComponent";
-import RegisterCompanyComponent from "./components/Auth/RegisterCompany/RegisterCompanyFormik";
+import RegisterCompanyComponent from "./containers/Auth/RegisterCompanyContainer";
 import "./styles/styles.css";
 
 class App extends Component {

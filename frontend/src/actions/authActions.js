@@ -21,6 +21,24 @@ export const registerUser = (user, history) => dispatch => {
 		});
 };
 
+export const registerCompany = (company, history) => dispatch => {
+	axios
+		.post("/api/auth/register/company", company)
+		.then(res => {
+			const { verifyToken } = res.data;
+			console.log(verifyToken);
+			localStorage.setItem("verifyToken", verifyToken);
+			setAuthToken(verifyToken);
+			history.push("/confirmation");
+		})
+		.catch(err => {
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			});
+		});
+};
+
 export function loginSuccess(user) {
 	console.log(user);
 	return {
