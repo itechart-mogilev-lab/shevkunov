@@ -10,37 +10,43 @@ import ProfileComponent from "./containers/Profile/ProfileContainer";
 import DashBoard from "./components/Profile/ProfileDashboardComponent";
 import Home from "./components/Home/HomeComponent";
 import RegisterCompanyComponent from "./containers/Auth/RegisterCompanyContainer";
+import CompaniesPageComponent from "./containers/Companies/CompaniesPageContainer";
 import "./styles/styles.css";
 
 class App extends Component {
-	render() {
-		return (
-			<Provider store={store}>
-				<Router>
-					<>
-						<link
-							rel="stylesheet"
-							href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-						/>
-						<Header />
-						<Switch>
-							<Route exact path="/" component={Home} />
-							<Route exact path="/login" component={SignInComponent} />
-							<Route exact path="/register" component={RegisterComponent} />
-							<Route exact path="/confirmation" component={VerifyComponent} />
-							<Route exact path="/profile" component={ProfileComponent} />
-							<Route exact path="/dashboard" component={DashBoard} />
-							<Route
-								exact
-								path="/register-company"
-								component={RegisterCompanyComponent}
-							/>
-						</Switch>
-					</>
-				</Router>
-			</Provider>
-		);
-	}
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+            />
+            <Header />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={SignInComponent} />
+              <Route exact path="/register" component={RegisterComponent} />
+              <Route exact path="/confirmation" component={VerifyComponent} />
+              <Route exact path="/profile" component={ProfileComponent} />
+              <Route exact path="/dashboard" component={DashBoard} />
+              <Route
+                exact
+                path="/register-company"
+                component={RegisterCompanyComponent}
+              />
+              <Route
+                exact
+                path="/companies"
+                component={CompaniesPageComponent}
+              />
+            </Switch>
+          </>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;

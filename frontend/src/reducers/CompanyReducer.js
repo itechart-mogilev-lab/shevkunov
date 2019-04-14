@@ -9,9 +9,9 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  const { companies, total, page, pages, limit } = action.payload;
   switch (action.type) {
     case COMPANIES_LOAD_SUCCESS: {
+      const { companies, total, page, pages, limit } = action.payload;
       return {
         companies,
         total,

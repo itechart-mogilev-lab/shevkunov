@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CompanyCard from "./CompanyCard";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   table: {
@@ -28,8 +30,8 @@ const CompanyList = ({ companiesList, onClick, classes }) => (
 );
 
 CompanyList.propTypes = {
-  companiesList: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired
+  companiesList: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(CompanyCard);

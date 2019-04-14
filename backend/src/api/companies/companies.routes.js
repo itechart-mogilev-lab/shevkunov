@@ -5,12 +5,7 @@ const permit = require("../../middleware/permission");
 
 const Role = require("../../enums/roles.enum");
 
-// Examples
-router.get("/only-admin", permit(Role.Admin), (req, res, next) => {
-  res.status(httpStatus.OK).json("GET /only-admin");
-});
-router.get("/only-user", permit(Role.User), (req, res, next) => {
-  res.status(httpStatus.OK).json("GET /only-user");
-});
+router.get("/", controller.get);
+router.get("/test", controller.test);
 
 module.exports = router;

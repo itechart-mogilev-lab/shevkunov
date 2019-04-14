@@ -72,8 +72,9 @@ const schema = new mongoose.Schema(
     ],
     price: { type: SchemaTypes.Double, required: true },
     role: { type: String, required: true, lowercase: true },
-    status: { type: Number, required: true, default: userStatuses.NotVerified },
-    ratting: { type: SchemaTypes.Double, default: 0 },
+    status: { type: String, required: true, default: userStatuses.NotVerified },
+    rating: { type: SchemaTypes.Double, default: 0 },
+    popularity: { type: Number, default: 0 },
     password: {
       type: String,
       required: true,
@@ -136,5 +137,5 @@ schema.set("toObject", {
     delete ret.__v;
   }
 });
-
+schema.plugin(mongoosePaginate);
 module.exports = mongoose.model("Company", schema);

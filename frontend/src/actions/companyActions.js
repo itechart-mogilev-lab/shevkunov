@@ -20,9 +20,9 @@ export const getCompaniesListSuccess = ({
   };
 };
 
-export const getCompaniesList = page => {
+export const getCompaniesList = queires => dispatch => {
   axios
-    .get(`/api/companies/${page}`)
+    .get(`/api/companies/${queires}`)
     .then(response => {
       dispatch(getCompaniesListSuccess(response.data));
     })
