@@ -81,7 +81,7 @@ const schema = new mongoose.Schema(
       select: false,
       validate: {
         validator(password) {
-          return passwordReg.test(password);
+          return /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(password);
         },
         message: "{VALUE} is not a valid password!"
       }

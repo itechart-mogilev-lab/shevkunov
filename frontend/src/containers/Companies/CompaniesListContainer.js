@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import CompanyList from "../../components/Companies/CompanyList";
 
 const mapStateToProps = state => {
+  console.log(state.companiesList.docs);
   return {
-    companiesList: state.companiesList
+    companiesList: state.companiesList.docs
   };
 };
 

@@ -129,6 +129,7 @@ async function registerCompany(
 ) {
   try {
     const price = 0.5;
+    const rndCode = getRandomInt(1000, 9999);
     const company = new Company({
       name,
       description,
@@ -148,7 +149,7 @@ async function registerCompany(
       { expiresIn: "1h" }
     );
     mailService.gmailSend(
-      userObj.email,
+      companyObj.email,
       mailForVerify(companyObj.firstname, rndCode, verifyToken, host)
     );
     const { password: userPassword, ...userWithoutPassword } = companyObj;

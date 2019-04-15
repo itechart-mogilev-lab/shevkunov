@@ -2,7 +2,7 @@ import { COMPANIES_LOAD_SUCCESS, GET_ERRORS } from "./actionTypes";
 import axios from "axios";
 
 export const getCompaniesListSuccess = ({
-  docs: companies,
+  docs,
   total,
   page,
   pages,
@@ -11,7 +11,7 @@ export const getCompaniesListSuccess = ({
   return {
     type: COMPANIES_LOAD_SUCCESS,
     payload: {
-      companies,
+      docs,
       total,
       page,
       pages,

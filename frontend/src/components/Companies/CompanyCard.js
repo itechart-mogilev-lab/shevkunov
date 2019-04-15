@@ -27,7 +27,8 @@ const styles = {
 
 function CompanyCard(props) {
   const { classes, onClick } = props;
-  const { name, address, _id, rating } = props.company;
+  const { name, address, _id, rating } = props;
+  console.log(props);
 
   return (
     <Card className={classes.card}>

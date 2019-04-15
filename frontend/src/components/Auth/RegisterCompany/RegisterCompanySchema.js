@@ -25,29 +25,31 @@ const CompanySchema = object().shape({
   confirmPassword: string()
     .required()
     .oneOf([ref("password")]),
-  toilet: object().shape({
-    price: number()
-      .required()
-      .min(0),
-    time: number()
-      .required()
-      .min(0)
-  }),
-  standart: object().shape({
-    price: number()
-      .required()
-      .min(0),
-    time: number()
-      .required()
-      .min(0)
-  }),
-  big: object().shape({
-    price: number()
-      .required()
-      .min(0),
-    time: number()
-      .required()
-      .min(0)
+  rooms: object().shape({
+    standart: object().shape({
+      price: number()
+        .required()
+        .min(0),
+      time: number()
+        .required()
+        .min(0)
+    }),
+    big: object().shape({
+      price: number()
+        .required()
+        .min(0),
+      time: number()
+        .required()
+        .min(0)
+    }),
+    toilet: object().shape({
+      price: number()
+        .required()
+        .min(0),
+      time: number()
+        .required()
+        .min(0)
+    })
   }),
   services: array()
     .of(

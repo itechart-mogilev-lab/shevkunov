@@ -36,9 +36,10 @@ async function getCompanies({ service, companyName, sort, city }) {
   };
   const query = {};
   query.status = { $eq: usersStatus.Verified };
-  (query["adress.city"] = city),
-    (query.name = companyName),
-    (query["services.name"] = service);
+  (query["address.city"] = city || { $regex: "" }),
+    (query.name = { $regex: companyName || "" }),
+    (query["services.name"] = service || { $regex: "" });
+  console.log(query);
   const companies = await Company.paginate(query, options);
   return companies;
 }

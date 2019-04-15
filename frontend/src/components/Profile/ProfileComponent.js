@@ -7,71 +7,73 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 import Grid from "@material-ui/core/Grid";
 
 import { Link } from "react-router-dom";
 
 const styles = {
-	card: {
-		width: "100%",
-		minHeight: 520
-	}
+  card: {
+    width: "100%",
+    minHeight: 520
+  }
 };
 
 class ProfilePageComponent extends Component {
-	renderAddresses = (address, i) => {
-		return (
-			<Typography gutterBottom key={i}>
-				{address}
-			</Typography>
-		);
-	};
+  renderAddresses = (address, i) => {
+    return (
+      <Typography gutterBottom key={i}>
+        {address}
+      </Typography>
+    );
+  };
 
-	componentWillMount() {
-		this.props.getCurrentUser(this.props.history);
-	}
+  componentWillMount() {
+    this.props.getCurrentUser(this.props.history);
+  }
 
-	render() {
-		// const {role} = this.props;
-		// if(role === "customer"){
+  render() {
+    // const {role} = this.props;
+    // if(role === "customer"){
 
-		// } else if(role === "executor"){
+    // } else if(role === "executor"){
 
-		// }
-		const { classes, user } = this.props;
-		const { name, surname, email, phone } = user;
-		return (
-			<Card className={classes.card}>
-				<CardActionArea>
-					<Grid container alignItems="flex-start">
-						<Grid item xs>
-							<Typography gutterBottom variant="h5">
-								{name} {surname}
-							</Typography>
-						</Grid>
-					</Grid>
+    // }
+    const { classes, user } = this.props;
+    const { name, surname, email, phone } = user;
+    return (
+      <Card className={classes.card}>
+        <CardActionArea>
+          <Grid container alignItems="flex-start">
+            <Grid item xs>
+              <Typography gutterBottom variant="h5">
+                {name} {surname}
+              </Typography>
+            </Grid>
+          </Grid>
 
-					<CardContent>
-						<p>Email: {email}</p>
-						<p>Phone: {phone}</p>
-					</CardContent>
-				</CardActionArea>
-				<CardActions>
-					<Button size="small" color="primary">
-						<Link to="/profile/edit">Edit profile</Link>
-					</Button>
-					<Button size="small" color="primary">
-						<Link to="/orders">My orders</Link>
-					</Button>
-				</CardActions>
-			</Card>
-		);
-	}
+          <CardContent>
+            <p>Email: {email}</p>
+            <p>Phone: {phone}</p>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            <Link to="/profile/edit">Edit profile</Link>
+          </Button>
+          <Button size="small" color="primary">
+            <Link to="/orders">My orders</Link>
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
 ProfilePageComponent.propTypes = {
-	classes: PropTypes.object.isRequired,
-	user: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ProfilePageComponent);
