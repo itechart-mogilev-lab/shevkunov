@@ -1,25 +1,26 @@
 import { connect } from "react-redux";
-// import { goToDetailPage } from '../actions'
+import { setCompany } from "../../actions/bookingActions";
 import CompanyList from "../../components/Companies/CompanyList";
 
 const mapStateToProps = state => {
-  console.log(state.companiesList.docs);
+  console.log("STATE", state);
   return {
-    companiesList: state.companiesList.docs
+    companiesList: state.companiesList.docs,
+    order: state.booking.order
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         onClick: (item) => {
-//             dispatch(goToDetailPage(item));
-//         }
-//     }
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    onClick: company => {
+      dispatch(setCompany(company));
+    }
+  };
+};
 
 const CompanyListComponent = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(CompanyList);
 
 export default CompanyListComponent;

@@ -26,9 +26,13 @@ const styles = {
 };
 
 function CompanyCard(props) {
-  const { classes, onClick } = props;
+  const { classes, order, onClick } = props;
   const { name, address, _id, rating } = props;
   console.log(props);
+
+  const linkBooking = <Link to={`/booking`}>Book service</Link>;
+  const linkConfirm = <Link to={`/confForm`}>Book service</Link>;
+  const link = order ? linkConfirm : linkBooking;
 
   return (
     <Card className={classes.card}>
@@ -47,14 +51,17 @@ function CompanyCard(props) {
         <Button size="small">
           <Link to={`/companies/${_id}`}>Learn More</Link>
         </Button>
+        <Button size="small" onClick={onClick}>
+          {link}
+        </Button>
       </CardActions>
     </Card>
   );
 }
 
 CompanyCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  company: PropTypes.object.isRequired
+  classes: PropTypes.object,
+  company: PropTypes.object
 };
 
 export default withStyles(styles)(CompanyCard);

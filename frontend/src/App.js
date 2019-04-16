@@ -11,6 +11,7 @@ import DashBoard from "./components/Profile/ProfileDashboardComponent";
 import Home from "./components/Home/HomeComponent";
 import RegisterCompanyComponent from "./containers/Auth/RegisterCompanyContainer";
 import CompaniesPageComponent from "./containers/Companies/CompaniesPageContainer";
+import BookingComponent from "./containers/Booking/BookingContainer";
 import "./styles/styles.css";
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
                 path="/companies"
                 component={CompaniesPageComponent}
               />
+              <Route exact path="/booking" component={BookingComponent} />
             </Switch>
           </>
         </Router>

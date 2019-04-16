@@ -17,11 +17,12 @@ const styles = theme => ({
   }
 });
 
-const CompanyList = ({ companiesList, onClick, classes }) => (
+const CompanyList = ({ companiesList, onClick, classes, order }) => (
   <div className={classes.table}>
     {companiesList.map(company => (
       <CompanyCard
         key={company._id}
+        order={order}
         {...company}
         onClick={() => onClick(company)}
       />
@@ -30,8 +31,8 @@ const CompanyList = ({ companiesList, onClick, classes }) => (
 );
 
 CompanyList.propTypes = {
-  companiesList: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired
+  companiesList: PropTypes.array,
+  onClick: PropTypes.func
 };
 
 export default withStyles(styles)(CompanyList);
