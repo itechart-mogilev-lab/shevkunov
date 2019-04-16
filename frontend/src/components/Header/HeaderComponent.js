@@ -60,6 +60,9 @@ class Header extends Component {
 						<Typography variant="h6" color="inherit" className={classes.grow}>
 							Home
 						</Typography>
+						<Link to="/companies">
+							<Button color="inherit">Companies</Button>
+						</Link>
 						{isAuthenticated ? authLinks : guestLinks}
 					</Toolbar>
 				</AppBar>
