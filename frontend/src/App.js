@@ -12,43 +12,45 @@ import Home from "./components/Home/HomeComponent";
 import RegisterCompanyComponent from "./containers/Auth/RegisterCompanyContainer";
 import CompaniesPageComponent from "./containers/Companies/CompaniesPageContainer";
 import BookingComponent from "./containers/Booking/BookingContainer";
+import ModalContainer from "./containers/Modal/ModalContainer";
 import "./styles/styles.css";
 
 class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <>
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-            />
-            <Header />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={SignInComponent} />
-              <Route exact path="/register" component={RegisterComponent} />
-              <Route exact path="/confirmation" component={VerifyComponent} />
-              <Route exact path="/profile" component={ProfileComponent} />
-              <Route exact path="/dashboard" component={DashBoard} />
-              <Route
-                exact
-                path="/register-company"
-                component={RegisterCompanyComponent}
-              />
-              <Route
-                exact
-                path="/companies"
-                component={CompaniesPageComponent}
-              />
-              <Route exact path="/booking" component={BookingComponent} />
-            </Switch>
-          </>
-        </Router>
-      </Provider>
-    );
-  }
+	render() {
+		return (
+			<Provider store={store}>
+				<Router>
+					<>
+						<link
+							rel="stylesheet"
+							href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+						/>
+						<Header />
+						<Switch>
+							<Route exact path="/" component={Home} />
+							<Route exact path="/login" component={SignInComponent} />
+							<Route exact path="/register" component={RegisterComponent} />
+							<Route exact path="/confirmation" component={VerifyComponent} />
+							<Route exact path="/profile" component={ProfileComponent} />
+							<Route exact path="/dashboard" component={DashBoard} />
+							<Route
+								exact
+								path="/register-company"
+								component={RegisterCompanyComponent}
+							/>
+							<Route
+								exact
+								path="/companies"
+								component={CompaniesPageComponent}
+							/>
+							<Route exact path="/booking" component={BookingComponent} />
+							<Route exact path="/confForm" component={ModalContainer} />
+						</Switch>
+					</>
+				</Router>
+			</Provider>
+		);
+	}
 }
 
 export default App;

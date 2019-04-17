@@ -5,3 +5,5 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const COMPANIES_LOAD_SUCCESS = "COMPANIES_LOAD_SUCCESS";
 export const SAVE_ORDER = "SAVE_ORDER";
 export const SET_COMPANY = "SET_COMPANY";
+export const HIDE_MODAL = "HIDE_MODAL";
+export const SHOW_MODAL = "SHOW_MODAL";
