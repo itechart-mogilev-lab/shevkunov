@@ -1,14 +1,13 @@
 import { HIDE_MODAL, SHOW_MODAL } from "./actionTypes";
 
-export const showModal = ({ ...modalProps }) => dispatch => {
-	dispatch({
-		type: SHOW_MODAL,
-		modalProps
-	});
+export const showModal = () => dispatch => {
+  dispatch({
+    type: SHOW_MODAL
+  });
 };
 
 export const hideModal = () => dispatch => {
-	dispatch({
-		type: HIDE_MODAL
-	});
+  dispatch({
+    type: HIDE_MODAL
+  });
 };

@@ -5,46 +5,32 @@ import BookingModal from "../../components/Booking/BookingModal";
 import { hideModal } from "../../actions/modalActions";
 
 const mapStateToProps = state => ({
-	...state.modal
+  open: state.modal.show,
+  values: state.booking.order,
+  company: state.booking.company
+});
+
+const mapDispatchToProps = dispatch => ({
+  closeModal: () => dispatch(hideModal())
 });
 
 class ModalContainer extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			modalIsOpen: this.props.modalProps.open
-		};
-		this.closeModal = this.closeModal.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps !== this.props) {
-			this.setState({
-				modalIsOpen: nextProps.modalProps.open
-			});
-		}
-	}
-
-	closeModal() {
-		this.setState({ modalIsOpen: false });
-		this.props.history.goBack();
-	}
-
-	render() {
-		console.log("PROPS_MODAL_CONTAINER:", this.props);
-		return (
-			<div>
-				<BookingModal
-					closeModal={this.closeModal}
-					modalIsOpen={this.state.modalIsOpen}
-					{...this.props.modalProps}
-				/>
-			</div>
-		);
-	}
+  render() {
+    console.log("PROPS_MODAL_CONTAINER:", this.props);
+    if (!this.props.open) return null;
+    return (
+      <div>
+        <BookingModal
+          closeModal={this.props.closeModal}
+          company={this.props.company}
+          values={this.props.values}
+        />
+      </div>
+    );
+  }
 }
 
 export default connect(
-	mapStateToProps,
-	null
+  mapStateToProps,
+  mapDispatchToProps
 )(ModalContainer);

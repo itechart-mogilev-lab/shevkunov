@@ -41,21 +41,21 @@ class ProfilePageComponent extends Component {
 
     // }
     const { classes, user } = this.props;
-    const { name, surname, email, phone } = user;
+    const { firstname, surname, email, phoneNumber, name } = user;
     return (
       <Card className={classes.card}>
         <CardActionArea>
           <Grid container alignItems="flex-start">
             <Grid item xs>
               <Typography gutterBottom variant="h5">
-                {name} {surname}
+                {name} || {firstname} {surname}
               </Typography>
             </Grid>
           </Grid>
 
           <CardContent>
             <p>Email: {email}</p>
-            <p>Phone: {phone}</p>
+            <p>Phone: {phoneNumber}</p>
           </CardContent>
         </CardActionArea>
         <CardActions>

@@ -17,7 +17,7 @@ const styles = theme => ({
   }
 });
 
-const CompanyList = ({ companiesList, onClick, classes, order }) => (
+const CompanyList = ({ companiesList, onClick, classes, order, showModal }) => (
   <div className={classes.table}>
     {companiesList.map(company => (
       <CompanyCard
@@ -25,6 +25,7 @@ const CompanyList = ({ companiesList, onClick, classes, order }) => (
         order={order}
         {...company}
         onClick={() => onClick(company)}
+        showModal={showModal}
       />
     ))}
   </div>

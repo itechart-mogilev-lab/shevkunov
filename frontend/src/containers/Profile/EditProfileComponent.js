@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/userActions";
-import ProfilePageComponent from "../../components/Profile/UserProfileComponent";
+import EditProfilePageComponent from "../../components/Profile/EditProfilePageComponent";
 
 const mapStateToProps = state => ({
   user: state.auth.profile
@@ -17,4 +17,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfilePageComponent);
+)(EditProfilePageComponent);
