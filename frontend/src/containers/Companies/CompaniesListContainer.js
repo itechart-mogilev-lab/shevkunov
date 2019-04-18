@@ -4,7 +4,6 @@ import { showModal } from "../../actions/modalActions";
 import CompanyList from "../../components/Companies/CompanyList";
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
   return {
     companiesList: state.companiesList.docs,
     order: state.booking.order

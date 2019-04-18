@@ -28,7 +28,6 @@ const styles = {
 function CompanyCard(props) {
   const { classes, order, onClick, showModal } = props;
   const { name, address, _id, rating } = props;
-  console.log(props);
 
   const linkBooking = <Link to={`/booking`}>Book service</Link>;
   const linkConfirm = <p>Book service</p>;

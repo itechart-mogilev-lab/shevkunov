@@ -20,7 +20,6 @@ export default function SignInComponentFormik(props) {
         validationSchema={SignInSchema}
         onSubmit={values => {
           const user = values;
-          console.log(user);
           props.loginUser(user, props.history);
         }}
         component={SignInForm}

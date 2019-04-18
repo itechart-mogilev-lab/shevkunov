@@ -1,4 +1,4 @@
-import { SAVE_ORDER, SET_COMPANY } from "../actions/actionTypes";
+import { SAVE_ORDER, SET_COMPANY, DELETE_ORDER } from "../actions/actionTypes";
 
 const initialState = {
   company: null,
@@ -12,6 +12,8 @@ export default function(state = initialState, action) {
       return { order: payload, company: state.company };
     case SET_COMPANY:
       return { order: state.order, company: payload };
+    case DELETE_ORDER:
+      return initialState;
     default:
       return state;
   }

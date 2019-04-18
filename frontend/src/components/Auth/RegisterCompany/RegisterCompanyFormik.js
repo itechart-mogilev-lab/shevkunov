@@ -56,7 +56,6 @@ export default function RegisterComponentFormik(props) {
       validationSchema={RegisterCompanySchema}
       onSubmit={values => {
         const { confirmPassword, ...company } = values;
-        console.log(company);
         props.registerCompany(company, props.history);
       }}
       component={RegisterCompanyForm}
