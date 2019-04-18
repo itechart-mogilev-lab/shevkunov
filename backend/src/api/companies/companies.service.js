@@ -44,6 +44,17 @@ async function getCompanies({ service, companyName, sort, city }) {
   return companies;
 }
 
+async function editCompanyProfile(_id, { data }) {
+  return await Company.findByIdAndUpdate(_id, {
+    $set: {
+      username: data.username,
+      email: data.email,
+      phoneNumber: data.phoneNumber
+    }
+  });
+}
+
 module.exports = {
-  getCompanies
+  getCompanies,
+  editCompanyProfile
 };

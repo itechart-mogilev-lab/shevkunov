@@ -30,10 +30,13 @@ async function createOrder(
     cleanTime,
     status: Status.Pending
   });
-  await order.save((err, data) => {
-    if (err) throw err;
-  });
-  return true;
+  try {
+    await order.save();
+    return true;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 async function getOrders(userId) {

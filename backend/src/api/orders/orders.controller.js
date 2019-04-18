@@ -13,15 +13,9 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.post = (req, res) => {
-  const model = {
-    customer: req.user.id,
-    executor: req.body.executor,
-    productId: req.body.productId
-  }
-
   service
-    .createOrder(model)
-    .then(order => res.status(httpStatus.CREATED).json(order))
+    .createOrder(req.user._id, req.body)
+    .then(res.status(httpStatus.CREATED).json("Created"))
     .catch(err => next(err));
 };
 

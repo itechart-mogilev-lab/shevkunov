@@ -8,14 +8,15 @@ import InputLabel from "@material-ui/core/InputLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "../styles";
 
-function RegisterForm(props) {
+function EditUserForm(props) {
 	const {
 		classes,
 		errors,
 		touched,
 		handleChange,
 		handleBlur,
-		handleSubmit
+		handleSubmit,
+		values
 	} = props;
 	return (
 		<form className={classes.form} onSubmit={handleSubmit}>
@@ -27,6 +28,7 @@ function RegisterForm(props) {
 					autoComplete="firstname"
 					onChange={handleChange}
 					onBlur={handleBlur}
+					value={values.firstname}
 					aria-describedby="component-error-text"
 					error={touched.firstname && Boolean(errors.firstname)}
 				/>
@@ -43,6 +45,7 @@ function RegisterForm(props) {
 					name="surname"
 					autoComplete="surname"
 					onChange={handleChange}
+					value={values.surname}
 					onBlur={handleBlur}
 					error={touched.surname && Boolean(errors.surname)}
 					aria-describedby="component-error-text"
@@ -60,6 +63,7 @@ function RegisterForm(props) {
 					name="email"
 					autoComplete="email"
 					onChange={handleChange}
+					value={values.email}
 					onBlur={handleBlur}
 					error={touched.email && Boolean(errors.email)}
 					aria-describedby="component-error-text"
@@ -70,7 +74,7 @@ function RegisterForm(props) {
 					</FormHelperText>
 				)}
 			</FormControl>
-			<FormControl margin="normal" required fullWidth>
+			{/* <FormControl margin="normal" required fullWidth>
 				<InputLabel htmlFor="password">Password</InputLabel>
 				<Input
 					name="password"
@@ -105,7 +109,7 @@ function RegisterForm(props) {
 						{errors.confirmPassword}
 					</FormHelperText>
 				)}
-			</FormControl>
+			</FormControl> */}
 			<FormControl margin="normal" required fullWidth>
 				<InputLabel htmlFor="phoneNumber">Phone number</InputLabel>
 				<Input
@@ -114,6 +118,7 @@ function RegisterForm(props) {
 					autoComplete="phoneNumber"
 					onChange={handleChange}
 					onBlur={handleBlur}
+					value={values.phoneNumber}
 					error={touched.phoneNumber && Boolean(errors.phoneNumber)}
 					aria-describedby="component-error-text"
 					autoFocus
@@ -132,14 +137,14 @@ function RegisterForm(props) {
 				color="primary"
 				className={classes.submit}
 			>
-				Register
+				Save
 			</Button>
 		</form>
 	);
 }
 
-RegisterForm.propTypes = {
+EditUserForm.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(RegisterForm);
+export default withStyles(styles)(EditUserForm);

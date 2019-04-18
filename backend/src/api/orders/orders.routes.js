@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const permit = require("../../middleware/permission");
 const controller = require(`./orders.controller`);
+const Role = require("../../enums/roles.enum");
 
 router.get("/", permit(), controller.get);
 router.get("/:id", permit(), controller.getById);

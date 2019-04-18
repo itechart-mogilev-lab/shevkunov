@@ -4,7 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -73,7 +72,7 @@ const styles = theme => ({
 
 function selectItem(options) {
 	return options.map(option => (
-		<MenuItem key={option.key} value={option.value}>
+		<MenuItem key={option.value} value={option.value}>
 			{option.name}
 		</MenuItem>
 	));

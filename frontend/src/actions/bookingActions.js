@@ -1,15 +1,41 @@
-import { SAVE_ORDER, SET_COMPANY } from "./actionTypes";
+import {
+	SAVE_ORDER,
+	SET_COMPANY,
+	SEND_ORDER,
+	SEND_ORDER_SUCCESS,
+	GET_ERRORS
+} from "./actionTypes";
+import axios from "axios";
 
 export const saveOrder = values => {
-  return {
-    type: SAVE_ORDER,
-    payload: values
-  };
+	return {
+		type: SAVE_ORDER,
+		payload: values
+	};
 };
 
 export const setCompany = company => {
-  return {
-    type: SET_COMPANY,
-    payload: company
-  };
+	return {
+		type: SET_COMPANY,
+		payload: company
+	};
+};
+
+export const sendOrder = values => dispatch => {
+	dispatch({
+		type: SEND_ORDER
+	});
+	axios
+		.post("/api/orders", values)
+		.then(
+			dispatch({
+				type: SEND_ORDER_SUCCESS
+			})
+		)
+		.catch(err => {
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			});
+		});
 };

@@ -9,6 +9,15 @@ module.exports.get = async (req, res, next) => {
     .catch(err => next(err));
 };
 
+module.exports.editCompanyProfile = (req, res, next) => {
+  userService
+    .editCompanyProfile(req.user.id, req.body)
+    .then(() => {
+      res.status(httpStatus.OK).json(`${req.body.name} edited profile`);
+    })
+    .catch(err => next(err));
+};
+
 module.exports.test = res => {
   console.log("test");
 };

@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
 import InputBase from "@material-ui/core/InputBase";
 import Select from "@material-ui/core/Select";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuItem from "@material-ui/core/MenuItem";
-import { fade } from "@material-ui/core/styles/colorManipulator";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import { sortType, selectCity, selectService } from "../../helpers/enum";
@@ -96,7 +92,7 @@ class SearchComponent extends Component {
 
 	queryCreator(sorting) {
 		for (let key in sorting) {
-			if (sorting[key] == "" || sorting[key] == null) {
+			if (sorting[key] === "" || sorting[key] === null) {
 				delete sorting[key];
 			}
 		}
