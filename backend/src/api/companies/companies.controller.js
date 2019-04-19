@@ -10,7 +10,7 @@ module.exports.get = async (req, res, next) => {
 };
 
 module.exports.editCompanyProfile = (req, res, next) => {
-  userService
+  companyService
     .editCompanyProfile(req.user.id, req.body)
     .then(() => {
       res.status(httpStatus.OK).json(`${req.body.name} edited profile`);

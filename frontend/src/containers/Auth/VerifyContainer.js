@@ -3,7 +3,7 @@ import { verifyUser } from "../../actions/authActions";
 import VerifyComponent from "../../components/Auth/VerifyComponent";
 
 const mapStateToProps = state => ({
-	errors: state.errors
+	errorMessage: state.errors.errorMessage
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {

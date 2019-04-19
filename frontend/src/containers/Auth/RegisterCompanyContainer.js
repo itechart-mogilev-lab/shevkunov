@@ -3,7 +3,7 @@ import { registerCompany } from "../../actions/authActions";
 import RegisterCompanyFormik from "../../components/Auth/RegisterCompany/RegisterCompanyFormik";
 
 const mapStateToProps = state => ({
-	errors: state.errors
+	errorMessage: state.errors.errorMessage
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {

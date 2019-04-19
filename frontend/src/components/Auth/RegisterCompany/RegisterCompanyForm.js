@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Field, FieldArray } from "formik";
 import { TextField } from "formik-material-ui";
 import { selectService } from "../../../helpers/enum";
+import ErrorSnackbar from "../../common/ErrorSnackbar";
 
 const styles = theme => ({
 	main: {
@@ -147,6 +148,7 @@ function RegisterForm(props) {
 		classes,
 		errors,
 		values,
+		errorMessage,
 		touched,
 		handleChange,
 		handleBlur,
@@ -180,6 +182,13 @@ function RegisterForm(props) {
 					Register
 				</Typography>
 				<form className={classes.form} onSubmit={handleSubmit}>
+					{errorMessage && (
+						<ErrorSnackbar
+							variant="error"
+							className={classes.margin}
+							message={errorMessage}
+						/>
+					)}
 					<div className={classes.grid}>
 						<FormControl margin="normal" required>
 							<InputLabel htmlFor="name">Name</InputLabel>

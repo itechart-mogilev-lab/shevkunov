@@ -6,12 +6,14 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ErrorSnackbar from "../../common/ErrorSnackbar";
 import styles from "../styles";
 
 function RegisterForm(props) {
 	const {
 		classes,
 		errors,
+		errorMessage,
 		touched,
 		handleChange,
 		handleBlur,
@@ -19,6 +21,13 @@ function RegisterForm(props) {
 	} = props;
 	return (
 		<form className={classes.form} onSubmit={handleSubmit}>
+			{errorMessage && (
+				<ErrorSnackbar
+					variant="error"
+					className={classes.margin}
+					message={errorMessage}
+				/>
+			)}
 			<FormControl margin="normal" required fullWidth>
 				<InputLabel htmlFor="firstname">Firstname</InputLabel>
 				<Input

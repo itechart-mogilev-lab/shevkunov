@@ -33,3 +33,9 @@ module.exports.mailForVerify = (name, rndCode, verifyToken, host) => {
   const subject = "Подтверждение учетной записи";
   return { content, subject };
 };
+
+module.exports.mailForNewOrder = (name, id) => {
+  const content = `${name}, у вас новый заказ, его id: ${id}`;
+  const subject = "Новый заказ";
+  return { content, subject };
+};

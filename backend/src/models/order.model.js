@@ -17,7 +17,7 @@ const schema = new mongoose.Schema(
     },
     address: { type: String, required: true },
     regularity: { type: String, required: true },
-    duration: { type: Number, min: 1, max: 6 },
+    duration: { type: Number, min: 0, max: 6 },
     date: { type: String, required: true },
     startTime: { type: String, required: true },
     service: { type: String, required: true },

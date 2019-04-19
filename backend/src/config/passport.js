@@ -3,6 +3,7 @@ const { ExtractJwt, Strategy } = require("passport-jwt");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const config = require("./environment");
 const User = require("../models/user.model");
+const Company = require("../models/company.model");
 const usersStatus = require("../enums/users.status.enum");
 const Roles = require("../enums/roles.enum");
 
@@ -13,8 +14,12 @@ function jwtStrategy() {
   };
 
   const strategy = new Strategy(opts, async (token, done) => {
-    console.log(token);
-    const user = await User.findOne({ _id: token.id });
+    let user;
+    if (token.role === Roles.User) {
+      user = await User.findById(token.id);
+    } else {
+      user = await Company.findById(token.id);
+    }
     if (user) {
       return done(null, user);
     } else {
