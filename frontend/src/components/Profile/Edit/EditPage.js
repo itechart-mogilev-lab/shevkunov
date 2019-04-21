@@ -10,13 +10,13 @@ import Typography from "@material-ui/core/Typography";
 import styles from "./styles";
 
 function EditProfile(props) {
-	const { classes } = props;
+	const { classes, errorMessage } = props;
 	function renderEdit() {
 		const { profile } = props;
 		if (profile.role === "company") {
-			return <EditCompany company={profile} saveChanged={saveChanged} />;
+			return <EditCompany company={profile} saveChanged={saveChanged} errorMessage={errorMessage} />;
 		} else {
-			return <EditUser user={profile} saveChanged={saveChanged} />;
+			return <EditUser user={profile} saveChanged={saveChanged} errorMessage={errorMessage} />;
 		}
 	}
 	function saveChanged(data) {

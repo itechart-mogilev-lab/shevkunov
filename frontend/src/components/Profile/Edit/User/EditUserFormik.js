@@ -3,15 +3,17 @@ import React from "react";
 import EditUserSchema from "./EditUserSchema";
 import EditUserForm from "./EditUserForm";
 
-export default function EditUser({ error, user, saveChanged }) {
+export default function EditUser(props) {
+	const { error, user, saveChanged } = props;
 	const initialValues = {
 		firstname: user.firstname,
 		surname: user.surname,
 		email: user.email,
 		phone: user.phone,
 		addresses: user.addresses,
-		isNotify: user.isNotify,
-		notVerifiedEmail: user.notVerifiedEmail
+		oldPassword: "",
+		newPassword: "",
+		confirmNewPassword: ""
 	};
 
 	return (
@@ -25,7 +27,7 @@ export default function EditUser({ error, user, saveChanged }) {
 				const { ...profile } = values;
 				saveChanged(profile);
 			}}
-			component={EditUserForm}
+			render={formProps => <EditUserForm {...formProps} {...props} />}
 		/>
 	);
 }

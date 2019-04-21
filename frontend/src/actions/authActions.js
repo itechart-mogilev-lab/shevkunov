@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as act from "./actionTypes";
 import setAuthToken from "../helpers/setAuthToken";
-import { storeToken, clearToken } from "../helpers/authFromLocalStorage";
+import { storeToken, clearToken, clearVerifyToken } from "../helpers/authFromLocalStorage";
 import jwt_decode from "jwt-decode";
 
 export const registerUser = (user, history) => dispatch => {
@@ -70,6 +70,7 @@ export const loginUser = (user, history) => dispatch => {
       history.push("/profile");
     })
     .catch(err => {
+      if(err.response.data === "User or company is not verified") history.push("/confirmation")
       dispatch({
         type: act.GET_ERRORS,
         payload: err.response.data
@@ -90,6 +91,7 @@ export const verifyUser = (confirmationCode, history) => dispatch => {
     .post("/api/auth/confirmation", confirmationCode)
 
     .then(() => {
+      clearVerifyToken()
       dispatch(resetErrors());
       history.push("/login");
     })

@@ -15,3 +15,22 @@ export function countTime(coef, rooms, roomsCount) {
       rooms.toilet.time * roomsCount.toilet);
   return time;
 }
+
+export function averageRating(reviews) {
+  let ratting = 0;
+  ratting = reviews.reduce((sum, review) => {
+    return sum + review.ratting;
+  }, 0);
+  const middle = Math.round((ratting / reviews.length) * 10) / 10;
+  return middle;
+};
+
+module.exports.middlePriceForCompany = (rooms, services) => {
+  let middlePrice = services.reduce((price, service) => {
+    price += +service.coefficient;
+    return price;
+  }, 0);
+  middlePrice *= rooms.toilet.price + rooms.standart.price + rooms.big.price;
+  middlePrice = Math.round((middlePrice / 3) * 100) / 100;
+  return middlePrice;
+};

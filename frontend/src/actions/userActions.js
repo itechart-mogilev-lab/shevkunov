@@ -4,7 +4,8 @@ import {
   USER_EDIT,
   USER_EDIT_SUCCESS,
   COMPANY_EDIT,
-  COMPANY_EDIT_SUCCESS
+  COMPANY_EDIT_SUCCESS,
+  RESET_ERRORS
 } from "./actionTypes";
 import axios from "axios";
 
@@ -17,11 +18,19 @@ export const getProfileSuccess = profile => {
   };
 };
 
+
+export function resetErrors() {
+  return {
+    type: RESET_ERRORS
+  };
+}
+
 export const getCurrentProfile = () => dispatch => {
   axios
     .get("/api/auth/current")
     .then(response => {
       if (response.status !== 401) {
+        dispatch(resetErrors());
         dispatch(getProfileSuccess(response.data));
       } else {
       }
@@ -41,6 +50,7 @@ export const saveUserChanges = newProfile => dispatch => {
   axios
     .put("/api/users/edit", newProfile)
     .then(response => {
+      dispatch(resetErrors());
       dispatch({
         type: USER_EDIT_SUCCESS
       });

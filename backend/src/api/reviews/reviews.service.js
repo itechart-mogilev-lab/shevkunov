@@ -1,6 +1,6 @@
 const Review = require("../../models/review.model");
-// const { middleRatting } = require("../../config/pricingFunction");
-// const Company = require("../../models").company;
+const { averageRating } = require("../../services/price.service");
+const Company = require("../../models/company.model");
 
 async function createReview(customerId, { rating, reviewText, company }) {
   try {
@@ -10,12 +10,12 @@ async function createReview(customerId, { rating, reviewText, company }) {
       customer: customerId,
       company
     }).save();
-    // const reviews = await Review.find({ company });
-    // const rattingCompany = middleRatting(reviews);
-    // await Company.updateOne(
-    //   { _id: company },
-    //   { $set: { ratting: rattingCompany } }
-    // );
+    const reviews = await Review.find({ company });
+    const rattingCompany = averageRating(reviews);
+    await Company.updateOne(
+    { _id: company },
+    { $set: { ratting: rattingCompany } }
+    );
     return review;
   } catch (err) {
     console.log(err);

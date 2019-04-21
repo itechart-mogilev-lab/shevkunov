@@ -30,15 +30,32 @@ async function block({ reason, blocked }, _id) {
   return true;
 }
 
-async function editProfile(_id, { firstname, surname, email, phoneNumber }) {
-  return await User.findByIdAndUpdate(_id, {
+async function editProfile(_id, { firstname, surname, email, phoneNumber, oldPassword, newPassword }) {
+  try{
+  let user;
+  console.log(oldPassword, newPassword)
+  if(!oldPassword || oldPassword==="") {
+  user =  await User.findByIdAndUpdate(_id, {
     $set: {
       firstname: firstname,
       surname: surname,
       email: email,
       phoneNumber: phoneNumber
     }
-  });
+  });}
+  else {user =await User.findById(_id).select("password")
+  .exec();
+  const success = await user.comparePassword(oldPassword);
+  if (success === false) throw new Error("Old password is incorrect");
+  if (newPassword === oldPassword)
+        throw new Error("Passwords are equal")
+      user.password = newPassword;
+      await user.save(err => {
+        if (err) throw err;
+      });
+    }
+  }
+  catch(err) {throw(err)}
 }
 
 async function deleteUser(_id) {

@@ -10,6 +10,7 @@ import CheckCircleOutlinedIcon from "@material-ui/icons/CheckCircleOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ErrorSnackbar from "../common/ErrorSnackbar";
 
 const styles = theme => ({
 	main: {
@@ -78,7 +79,7 @@ class VerifyComponent extends Component {
 	}
 
 	render() {
-		const { classes } = this.props;
+		const { classes, errorMessage } = this.props;
 		return (
 			<main className={classes.main}>
 				<CssBaseline />
@@ -89,6 +90,13 @@ class VerifyComponent extends Component {
 					<Typography component="h1" variant="h5">
 						Confirm your account
 					</Typography>
+					{errorMessage && (
+				<ErrorSnackbar
+					variant="error"
+					className={classes.margin}
+					message={errorMessage}
+				/>
+			)}
 					<form className={classes.form} onSubmit={this.handleSubmit}>
 						<FormControl margin="normal" required fullWidth>
 							<InputLabel htmlFor="confirmationCode">

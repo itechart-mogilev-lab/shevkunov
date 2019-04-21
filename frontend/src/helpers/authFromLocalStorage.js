@@ -3,6 +3,7 @@ import { getCurrentProfile } from "../actions/userActions";
 import setAuthToken from "../helpers/setAuthToken";
 
 const AUTH_TOKEN_KEY = "jwtToken";
+const VERIFY_TOKEN = "verifyToken"
 const USER_KEY = "user";
 
 export const initializePreviousToken = async store => {
@@ -19,6 +20,10 @@ export const storeToken = (token, user) => {
   localStorage.setItem(AUTH_TOKEN_KEY, token);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 };
+
+export const clearVerifyToken = () => {
+  localStorage.removeItem(VERIFY_TOKEN);
+}
 
 export const clearToken = () => {
   localStorage.removeItem(AUTH_TOKEN_KEY);
