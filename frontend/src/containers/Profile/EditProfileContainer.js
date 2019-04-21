@@ -4,7 +4,8 @@ import EditPage from "../../components/Profile/Edit/EditPage";
 
 const mapStateToProps = state => ({
 	profile: state.auth.profile,
-	role: state.auth.profile.role
+	role: state.auth.profile.role,
+	errorMessage: state.errors.errorMessage
 });
 
 const mapDispatchToProps = dispatch => {

@@ -93,22 +93,33 @@ function getRandomInt(min, max) {
 async function confirmationUser({ confirmationCode }, verifyToken) {
   const decodeToken = jwt.verify(verifyToken, config.jwt.secret);
   const _id = decodeToken.id;
-  const user = await User.findById(_id);
-  const userObj = user.toObject();
+  let data;
+  let schema;
+  data = await User.findById(_id);
+  schema = User;
+    if (data === null) {
+      data = await Company.findById(_id)
+      schema = Company
+    }
+    if (data === null) throw new Error("User or company not found");
+  console.log(data);
+  let newNumberOfTryies = 0;
+  const userObj = data.toObject();
   if (userObj.verifyCode !== confirmationCode) {
     if (userObj.numberOfTryies !== 5) {
+      console.log(userObj.numberOfTryies);
       newNumberOfTryies = userObj.numberOfTryies + 1;
-      await user.Update({}, { $set: { numberOfTryies: newNumberOfTryies } });
+      console.log(newNumberOfTryies);
+      await schema.updateOne({"_id": _id}, { $set: { numberOfTryies: newNumberOfTryies } })
     } else {
-      User.findByIdAndDelete(_id).exec();
+      schema.findByIdAndDelete(_id).exec();
       throw new Error(
         "Number of tries is over! You must reregister your account"
       );
     }
-    console.log(typeof confirmationCode);
     throw new Error("Verify code incorrect");
   } else {
-    await user.Update({}, { $set: { status: usersStatus.Verified } });
+    await schema.updateOne({"_id": _id}, { $set: { status: usersStatus.Verified } });
   }
   return true;
 }
