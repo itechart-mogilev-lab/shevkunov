@@ -1,15 +1,24 @@
 import { connect } from "react-redux";
 //import { getCurrentProfile } from "../../actions/userActions";
-import { getOrders } from "../../actions/ordersActions";
+import {
+  getOrders,
+  acceptOrder,
+  rejectOrder
+} from "../../actions/ordersActions";
 import OrdersPageComponent from "../../components/Profile/Orders/OrdersPage";
 
 const mapStateToProps = state => ({
-  orders: state.ordersList.docs
+  orders: state.ordersList.docs,
+  pages: state.ordersList.pages,
+  page: state.ordersList.page,
+  role: state.auth.profile.role
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrders: () => dispatch(getOrders())
+    getOrders: query => dispatch(getOrders(query)),
+    acceptOrder: id => dispatch(acceptOrder(id)),
+    rejectOrder: id => dispatch(rejectOrder(id))
   };
 };
 

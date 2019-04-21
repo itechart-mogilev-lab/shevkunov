@@ -47,7 +47,7 @@ class CompaniesPageComponent extends Component {
     if (total > 0) {
       list = <CompaniesList />;
     }
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <div className={classes.companies}>
         <Search />

@@ -2,21 +2,30 @@ import React from "react";
 import { Formik } from "formik";
 import ReviewsSchema from "./ReviewsSchema";
 import ReviewForm from "./ReviewsForm";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
 
 export default function ReviewsFormik(props) {
-	return (
-		<div>
-			<Formik
-				initialValues={{
-					reviewText: "",
-					rating: 0
-				}}
-				validationSchema={ReviewsSchema}
-				onSubmit={(review = { company: props.company, ...values }) =>
-					props.createReview(review)
-				}
-				render={formProps => <ReviewForm {...formProps} {...props} />}
-			/>
-		</div>
-	);
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.closeReviewModal}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogContent>
+        <Formik
+          initialValues={{
+            reviewText: "",
+            rating: 0
+          }}
+          validationSchema={ReviewsSchema}
+          onSubmit={values => {
+            props.createReview({ company: props.company._id, ...values });
+          }}
+          render={formProps => <ReviewForm {...formProps} {...props} />}
+        />
+      </DialogContent>
+    </Dialog>
+  );
 }

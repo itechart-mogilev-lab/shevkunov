@@ -11,57 +11,63 @@ import EditProfileComponent from "./containers/Profile/EditProfileContainer";
 import Home from "./components/Home/HomeComponent";
 import RegisterCompanyComponent from "./containers/Auth/RegisterCompanyContainer";
 import CompaniesPageComponent from "./containers/Companies/CompaniesPageContainer";
+import CompanyMainPageContainer from "./containers/Companies/CompanyMainPageContainer";
 import OrdersPageComponent from "./containers/Profile/OrdersPageContainer";
 import BookingComponent from "./containers/Booking/BookingContainer";
 import ModalContainer from "./containers/Modal/ModalContainer";
-import ReviewContainer from "./containers/Companies/ReviewContainer";
+import ReviewContainer from "./containers/Modal/ReviewContainer";
 import { initializePreviousToken } from "./helpers/authFromLocalStorage";
 import "./styles/styles.css";
 
 initializePreviousToken(store);
 
 class App extends Component {
-	render() {
-		return (
-			<Provider store={store}>
-				<Router>
-					<>
-						<link
-							rel="stylesheet"
-							href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-						/>
-						<Header />
-						<Switch>
-							<Route exact path="/" component={Home} />
-							<Route exact path="/login" component={SignInComponent} />
-							<Route exact path="/register" component={RegisterComponent} />
-							<Route exact path="/confirmation" component={VerifyComponent} />
-							<Route exact path="/profile" component={ProfileComponent} />
-							<Route
-								exact
-								path="/profile/edit"
-								component={EditProfileComponent}
-							/>
-							<Route
-								exact
-								path="/register-company"
-								component={RegisterCompanyComponent}
-							/>
-							<Route
-								exact
-								path="/companies"
-								component={CompaniesPageComponent}
-							/>
-							<Route exact path="/orders" component={OrdersPageComponent} />
-							<Route exact path="/booking" component={BookingComponent} />
-							<Route exact path="/review" component={ReviewContainer} />
-						</Switch>
-						<ModalContainer />
-					</>
-				</Router>
-			</Provider>
-		);
-	}
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+            />
+            <Header />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={SignInComponent} />
+              <Route exact path="/register" component={RegisterComponent} />
+              <Route exact path="/confirmation" component={VerifyComponent} />
+              <Route exact path="/profile" component={ProfileComponent} />
+              <Route
+                exact
+                path="/profile/edit"
+                component={EditProfileComponent}
+              />
+              <Route
+                exact
+                path="/register-company"
+                component={RegisterCompanyComponent}
+              />
+              <Route
+                exact
+                path="/companies"
+                component={CompaniesPageComponent}
+              />
+              <Route
+                exact
+                path={`/companies/:id`}
+                component={CompanyMainPageContainer}
+              />
+              <Route exact path="/orders" component={OrdersPageComponent} />
+              <Route exact path="/booking" component={BookingComponent} />
+            </Switch>
+            <ModalContainer />
+            <ReviewContainer />
+          </>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;

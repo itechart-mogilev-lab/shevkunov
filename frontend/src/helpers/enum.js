@@ -39,3 +39,10 @@ export const selectRegularity = [
   { value: "every_two_weeks", name: "Every 2 weeks", key: 3 },
   { value: "every_month", name: "Every month", key: 4 }
 ];
+
+export const selectStatus = [
+  { value: "", name: "" },
+  { value: "pending", name: "Pending" },
+  { value: "canceled", name: "Canceled" },
+  { value: "accepted", name: "Accepted" }
+];

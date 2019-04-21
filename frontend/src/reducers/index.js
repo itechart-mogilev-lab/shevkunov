@@ -5,6 +5,7 @@ import companyReducer from "./CompanyReducer";
 import bookingReducer from "./BookingReducer";
 import modalReducer from "./ModalReducer";
 import ordersReducer from "./OrdersReducer";
+import companyDetailsReducer from "./CompanyDetailsReducer";
 
 export default combineReducers({
   errors: errorReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   companiesList: companyReducer,
   booking: bookingReducer,
   modal: modalReducer,
-  ordersList: ordersReducer
+  ordersList: ordersReducer,
+  company: companyDetailsReducer
 });

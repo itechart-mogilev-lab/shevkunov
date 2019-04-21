@@ -12,6 +12,7 @@ export default function BookingFormik(props) {
   return (
     <div>
       <Formik
+        enableReinitialize
         initialValues={
           props.order || {
             address: "",
@@ -27,8 +28,6 @@ export default function BookingFormik(props) {
             days: [],
             regularity: "",
             duration: 0,
-            availableServices,
-            availableRegularity,
             email: ""
           }
         }
@@ -42,7 +41,14 @@ export default function BookingFormik(props) {
             props.history.push(`/companies?service=${values.service}`);
           }
         }}
-        render={formProps => <BookingForm {...formProps} {...props} />}
+        render={formProps => (
+          <BookingForm
+            {...formProps}
+            {...props}
+            availableServices={availableServices}
+            availableRegularity={availableRegularity}
+          />
+        )}
       />
     </div>
   );

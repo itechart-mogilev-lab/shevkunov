@@ -1,27 +1,32 @@
 import { connect } from "react-redux";
-import { saveOrder } from "../../actions/bookingActions";
-import { showModal } from "../../actions/modalActions";
-import BookingComponent from "../../components/Booking/BookingFormik";
+import {
+  getCompanyDetails,
+  getCompanyReviews,
+  resetCompanyReviews
+} from "../../actions/companyActions";
+import { openReviewModal } from "../../actions/modalActions";
+import { setCompany } from "../../actions/bookingActions";
+import CompanyMainPage from "../../components/Companies/CompanyMainPage";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated,
-	company: state.booking.company,
-	order: state.booking.order
+  isAuthenticated: state.auth.isAuthenticated,
+  company: state.company.details.data,
+  reviews: state.company.reviews
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		saveOrders: values => {
-			dispatch(saveOrder(values));
-		},
-		showModal: values => {
-			dispatch(showModal(values));
-		}
-	};
+  return {
+    setCompany: company => dispatch(setCompany(company)),
+    getCompanyDetails: id => dispatch(getCompanyDetails(id)),
+    getCompanyReviews: (id, queries) =>
+      dispatch(getCompanyReviews(id, queries)),
+    openReviewModal: () => dispatch(openReviewModal()),
+    resetCompanyReviews: () => dispatch(resetCompanyReviews())
+  };
 };
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(withRouter(BookingComponent));
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CompanyMainPage));

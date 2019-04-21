@@ -8,7 +8,8 @@ const { mailForVerify } = require("../../config/mail");
 
 async function authenticate({ email, password }) {
   try {
-    let data = await User.findOne({ email })
+    let data;
+    data = await User.findOne({ email })
       .select("+password")
       .exec();
     if (data === null) {
@@ -16,9 +17,8 @@ async function authenticate({ email, password }) {
         .select("+password")
         .exec();
     }
-
     if (data === null) throw new Error("User or company not found");
-    let success = data.comparePassword(password);
+    let success = await data.comparePassword(password);
     if (success === false) throw new Error("Password is incorrect");
     if (data.status !== usersStatus.Verified)
       throw new Error("User or company is not verified");
@@ -97,8 +97,8 @@ async function confirmationUser({ confirmationCode }, verifyToken) {
   const userObj = user.toObject();
   if (userObj.verifyCode !== confirmationCode) {
     if (userObj.numberOfTryies !== 5) {
-      user.numberOfTryies = userObj.numberOfTryies + 1;
-      await user.save();
+      newNumberOfTryies = userObj.numberOfTryies + 1;
+      await user.Update({}, { $set: { numberOfTryies: newNumberOfTryies } });
     } else {
       User.findByIdAndDelete(_id).exec();
       throw new Error(
@@ -108,8 +108,7 @@ async function confirmationUser({ confirmationCode }, verifyToken) {
     console.log(typeof confirmationCode);
     throw new Error("Verify code incorrect");
   } else {
-    user.status = usersStatus.Verified;
-    await user.save();
+    await user.Update({}, { $set: { status: usersStatus.Verified } });
   }
   return true;
 }

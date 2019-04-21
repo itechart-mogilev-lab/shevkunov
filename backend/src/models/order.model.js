@@ -10,7 +10,7 @@ const schema = new mongoose.Schema(
       ref: "User",
       required: true
     },
-    executor: {
+    company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
       required: true

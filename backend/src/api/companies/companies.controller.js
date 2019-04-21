@@ -18,6 +18,15 @@ module.exports.editCompanyProfile = (req, res, next) => {
     .catch(err => next(err));
 };
 
+module.exports.getCompanyById = (req, res, next) => {
+  companyService
+    .getCompanyById(req.params.id)
+    .then(data => {
+      res.status(httpStatus.OK).json(data);
+    })
+    .catch(err => next(err));
+};
+
 module.exports.test = res => {
   console.log("test");
 };

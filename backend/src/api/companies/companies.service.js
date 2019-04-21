@@ -1,5 +1,3 @@
-const jwt = require("jsonwebtoken");
-const config = require("../../config/environment");
 const Company = require("../../models/company.model");
 const usersStatus = require("../../enums/users.status.enum");
 
@@ -39,9 +37,16 @@ async function getCompanies({ service, companyName, sort, city }) {
   (query["address.city"] = city || { $regex: "" }),
     (query.name = { $regex: companyName || "" }),
     (query["services.name"] = service || { $regex: "" });
-  console.log(query);
   const companies = await Company.paginate(query, options);
   return companies;
+}
+
+async function getCompanyById(_id) {
+  try {
+    return await Company.findById(_id);
+  } catch (err) {
+    throw err;
+  }
 }
 
 async function editCompanyProfile(_id, { data }) {
@@ -54,7 +59,31 @@ async function editCompanyProfile(_id, { data }) {
   });
 }
 
+async function block({ reason, blocked }, _id) {
+  if (blocked) {
+    const company = await Company.findByIdAndUpdate(_id, {
+      $set: { status: userStatus.Blocked, block_comment: `${reason}` }
+    });
+    Company.findById(_id, function(err, company) {
+      mailService.gmailSend(
+        company.email,
+        mailForBlocked(company.name, reason)
+      );
+    });
+  } else {
+    const company = await Company.findByIdAndUpdate(_id, {
+      $set: { status: userStatus.Verified }
+    });
+    Company.findById(_id, function(err, company) {
+      mailService.gmailSend(company.email, mailForUnblocked(company.username));
+    });
+  }
+  return true;
+}
+
 module.exports = {
   getCompanies,
-  editCompanyProfile
+  editCompanyProfile,
+  getCompanyById,
+  block
 };

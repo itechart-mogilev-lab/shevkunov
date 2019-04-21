@@ -23,12 +23,10 @@ const schema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: false,
-      trim: true,
-      minlength: [6, "Password need to be longer!"],
+      required: true,
       validate: {
         validator(password) {
-          return passwordReg.test(password);
+          return /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(password);
         },
         message: "{VALUE} is not a valid password!"
       }
@@ -90,7 +88,9 @@ schema.post("save", function(error, doc, next) {
 schema.methods.comparePassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, this.password, (err, success) => {
-      if (err) return reject(err);
+      if (err) {
+        return reject(err);
+      }
       return resolve(success);
     });
   });

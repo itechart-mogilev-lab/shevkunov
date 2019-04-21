@@ -3,15 +3,10 @@ const service = require("./orders.service");
 
 module.exports.get = (req, res) => {
   service
-    .getOrders(req.user.id)
+    .getOrders(req.user.id, req.query)
     .then(orders => res.status(httpStatus.OK).json(orders))
     .catch(err => next(err));
 };
-
-module.exports.getById = (req, res) => {
-  res.send(`getById: ${req.params.id}`);
-};
-
 module.exports.post = (req, res) => {
   service
     .createOrder(req.user._id, req.body)
@@ -19,8 +14,18 @@ module.exports.post = (req, res) => {
     .catch(err => next(err));
 };
 
-module.exports.put = (req, res) => {
-  res.send("put");
+module.exports.acceptOrder = (req, res) => {
+  service
+    .acceptOrder(req.params.id)
+    .then(res.status(httpStatus.OK).json("Order accepted"))
+    .catch(err => next(err));
+};
+
+module.exports.rejectOrder = (req, res) => {
+  service
+    .rejectOrder(req.params.id)
+    .then(res.status(httpStatus.OK).json("Order accepted"))
+    .catch(err => next(err));
 };
 
 module.exports.delete = (req, res) => {

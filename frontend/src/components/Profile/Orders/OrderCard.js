@@ -26,8 +26,20 @@ const styles = {
 };
 
 function OrderCard(props) {
-  const { classes, company, customer, order } = props;
-  console.log("ORDER", props);
+  const {
+    classes,
+    company,
+    customer,
+    address,
+    date,
+    startTime,
+    service,
+    status,
+    role,
+    _id,
+    acceptOrder,
+    rejectOrder
+  } = props;
 
   return (
     <Card className={classes.card}>
@@ -35,23 +47,34 @@ function OrderCard(props) {
         <Typography className={classes.title} variant="h5" component="h2">
           Company: {company.name}
         </Typography>
+        {role !== "user" && (
+          <Typography color="textSecondary" gutterBottom>
+            Customer: {customer.firstname}
+          </Typography>
+        )}
         <Typography color="textSecondary" gutterBottom>
-          Customer: {customer.firstname}
+          Address: {address}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Address: {order.address}
+          Date and time: {date} {startTime}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Date and time: {order.date} {order.startTime}
+          Service: {service}
         </Typography>
         <Typography color="textSecondary" gutterBottom>
-          Service: {order.service}
-        </Typography>
-        <Typography color="textSecondary" gutterBottom>
-          Status: {order.status}
+          Status: {status}
         </Typography>
       </CardContent>
       <CardActions>
+        {role !== "user" &&
+          status === "pending" && [
+            <Button key="accept" size="small" onClick={() => acceptOrder(_id)}>
+              <p>Accept</p>
+            </Button>,
+            <Button key="reject" size="small" onClick={() => rejectOrder(_id)}>
+              <p>Reject</p>
+            </Button>
+          ]}
         <Button size="small">
           <Link to={`/companies`}>Learn More</Link>
         </Button>

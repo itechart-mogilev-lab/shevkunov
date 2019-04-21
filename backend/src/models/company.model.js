@@ -126,6 +126,7 @@ schema.post("save", function(error, doc, next) {
 schema.methods.comparePassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, this.password, (err, success) => {
+      console.log(success);
       if (err) return reject(err);
       return resolve(success);
     });

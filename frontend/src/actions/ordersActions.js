@@ -1,18 +1,16 @@
 import {
   ORDERS_LOAD_SUCCESS,
   GET_ORDERS_ERRORS,
-  ORDERS_REQUEST
+  ORDERS_REQUEST,
+  GET_ERRORS
 } from "./actionTypes";
 import axios from "axios";
 
-export const getOrdersSuccess = () =>
-  /*{docs total, page, pages, limit}*/
-
-  {
-    return {
-      type: ORDERS_LOAD_SUCCESS,
-      payload: {
-        //TODO
+export const getOrdersSuccess = data => {
+  return {
+    type: ORDERS_LOAD_SUCCESS,
+    payload: data
+    /*{
         docs: [
           {
             company: {
@@ -121,9 +119,9 @@ export const getOrdersSuccess = () =>
         page: 1,
         pages: 1,
         limit: 10
-      }
-    };
+      }*/
   };
+};
 
 const requestOrders = () => {
   return {
@@ -131,19 +129,42 @@ const requestOrders = () => {
   };
 };
 
-export const getOrders = queires => dispatch => {
+export const getOrders = query => dispatch => {
   dispatch(requestOrders());
-  //TODOs
-  dispatch(getOrdersSuccess());
-  /*axios
-    .get(`/api/orders`)
+  console.log("QUERY", query);
+  axios
+    .get(`/api/orders/${query || ""}`)
     .then(response => {
       dispatch(getOrdersSuccess(response.data));
     })
     .catch(err => {
       dispatch({
-        type: GET_ORDERS_ERRORS,
+        type: GET_ERRORS,
         payload: err.response
       });
-    });*/
+    });
+};
+
+export const acceptOrder = id => dispatch => {
+  axios
+    .put(`/api/orders/${id}/accept`, id)
+    .then(dispatch(getOrders()))
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response
+      });
+    });
+};
+
+export const rejectOrder = id => dispatch => {
+  axios
+    .put(`/api/orders/${id}/reject`, id)
+    .then(dispatch(getOrders()))
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response
+      });
+    });
 };

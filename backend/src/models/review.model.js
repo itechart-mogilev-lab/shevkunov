@@ -3,7 +3,7 @@ var mongoosePaginate = require("mongoose-paginate");
 
 const schema = new mongoose.Schema(
   {
-    ratting: { type: Number, required: true, max: 5 },
+    rating: { type: Number, required: true, max: 5 },
     reviewText: { type: String, required: true },
     customer: {
       type: mongoose.Schema.Types.ObjectId,

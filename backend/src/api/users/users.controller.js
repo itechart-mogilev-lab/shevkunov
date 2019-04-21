@@ -37,12 +37,3 @@ module.exports.deleteUser = (req, res, next) => {
     })
     .catch(err => next(err));
 };
-
-module.exports.test = (req, res, next) => {
-  userService
-    .test()
-    .then(() => {
-      res.status(httpStatus.OK).json("Ok");
-    })
-    .catch(err => next(err));
-};

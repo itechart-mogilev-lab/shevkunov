@@ -10,5 +10,6 @@ module.exports = {
   Refunded: "refunded",
   Reversed: "reversed",
   Shipped: "shipped",
-  Incomplete: "incomplete"
+  Incomplete: "incomplete",
+  Accepted: "accepted"
 };

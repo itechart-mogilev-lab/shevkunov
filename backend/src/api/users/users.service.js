@@ -6,8 +6,6 @@ const mailService = require("../../services/mail.service");
 const { mailForBlocked, mailForUnblocked } = require("../../config/mail");
 const userStatus = require("../../enums/users.status.enum");
 
-var NodeGeocoder = require("node-geocoder");
-
 async function getAllUsers() {
   const users = await User.find({ role: Role.User });
   return users;
@@ -49,34 +47,9 @@ async function deleteUser(_id) {
   });
 }
 
-async function test() {
-  var options = {
-    provider: "yandex",
-
-    // Optional depending on the providers
-    httpAdapter: "https", // Default
-    apiKey: "AIzaSyArNP_9i9f6dY0j0wY0_AiomQLxqNPxY5U", // for Mapquest, OpenCage, Google Premier
-    formatter: null // 'gpx', 'string', ...
-  };
-
-  var geocoder = NodeGeocoder(options);
-
-  // Using callback
-  geocoder
-    .geocode("Беларусь Могилев улица Островского дом 44")
-    .then(function(res) {
-      console.log(res);
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
-  return true;
-}
-
 module.exports = {
   getAllUsers,
   block,
   editProfile,
-  deleteUser,
-  test
+  deleteUser
 };

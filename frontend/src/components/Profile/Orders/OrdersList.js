@@ -17,10 +17,10 @@ const styles = theme => ({
   }
 });
 
-const OrdersList = ({ orders, classes }) => (
+const OrdersList = ({ orders, classes, ...props }) => (
   <div className={classes.table}>
     {orders.map(order => (
-      <OrderCard key={order._id} {...order} />
+      <OrderCard key={order._id} {...order} {...props} />
     ))}
   </div>
 );

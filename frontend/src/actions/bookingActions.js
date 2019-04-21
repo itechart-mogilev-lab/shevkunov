@@ -6,6 +6,7 @@ import {
   GET_ERRORS,
   DELETE_ORDER
 } from "./actionTypes";
+import { hideModal } from "./modalActions";
 import axios from "axios";
 
 export const saveOrder = values => {
@@ -28,11 +29,13 @@ export const sendOrder = values => dispatch => {
   });
   axios
     .post("/api/orders", values)
-    .then(
+    .then(res => {
       dispatch({
         type: SEND_ORDER_SUCCESS
-      })
-    )
+      });
+      dispatch(hideModal());
+      dispatch(deleteOrder());
+    })
     .catch(err => {
       dispatch({
         type: GET_ERRORS,

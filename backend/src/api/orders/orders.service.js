@@ -1,6 +1,7 @@
 const Order = require("../../models/order.model");
 const Status = require("../../enums/status.enum");
 const Company = require("../../models/company.model");
+const User = require("../../models/user.model");
 const { countPrice, countTime } = require("../../services/price.service");
 const mailService = require("../../services/mail.service");
 const { mailForNewOrder } = require("../../config/mail");
@@ -8,7 +9,7 @@ const { mailForNewOrder } = require("../../config/mail");
 async function createOrder(
   _id,
   {
-    executor,
+    company,
     address,
     regularity,
     duration,
@@ -18,17 +19,17 @@ async function createOrder(
     roomsCount
   }
 ) {
-  const company = await Company.findOne({
-    _id: executor,
+  const companySchema = await Company.findOne({
+    _id: company,
     "services.name": service
   });
-  const coef = company.services.find(o => o.name === service).coefficient;
-  const price = countPrice(coef, company.rooms, roomsCount);
-  const cleanTime = countTime(coef, company.rooms, roomsCount);
+  const coef = companySchema.services.find(o => o.name === service).coefficient;
+  const price = countPrice(coef, companySchema.rooms, roomsCount);
+  const cleanTime = countTime(coef, companySchema.rooms, roomsCount);
 
   const order = new Order({
     customer: _id,
-    executor,
+    company,
     address,
     regularity,
     duration,
@@ -43,8 +44,8 @@ async function createOrder(
   try {
     await order.save();
     mailService.gmailSend(
-      company.email,
-      mailForNewOrder(company.name, order._id)
+      companySchema.email,
+      mailForNewOrder(companySchema.name, order._id)
     );
     return true;
   } catch (err) {
@@ -53,13 +54,44 @@ async function createOrder(
   }
 }
 
-async function getOrders(userId) {
-  return await Order.find({ customer: userId })
-    .populate("customer")
-    .exec();
+async function getOrders(userId, { page, service, status }) {
+  const options = {
+    page: page || 1,
+    limit: 5,
+    populate: [
+      { path: "customer", select: "name surname email phone" },
+      { path: "company", select: "name email" }
+    ],
+    sort: "-created_at"
+  };
+  const query = { $or: [{ company: userId }, { customer: userId }] };
+  (query.status = { $regex: status || "" }),
+    (query.service = { $regex: service || "" });
+  const orders = await Order.paginate(query, options);
+  return orders;
+}
+
+async function acceptOrder(id) {
+  await Order.findByIdAndUpdate(id, {
+    $set: {
+      status: Status.Accepted
+    }
+  });
+  return true;
+}
+
+async function rejectOrder(id) {
+  await Order.findByIdAndUpdate(id, {
+    $set: {
+      status: Status.Canceled
+    }
+  });
+  return true;
 }
 
 module.exports = {
   createOrder,
-  getOrders
+  getOrders,
+  acceptOrder,
+  rejectOrder
 };

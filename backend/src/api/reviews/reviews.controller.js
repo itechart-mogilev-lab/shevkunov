@@ -17,7 +17,7 @@ module.exports.getById = (req, res, next) => {
 
 module.exports.getReviewsCompany = (req, res, next) => {
   service
-    .getByIdReviewsCompany(req.params.id, req.query)
+    .getReviews(req.params.id, req.query)
     .then(data => {
       console.log(data);
       res.status(httpStatus.OK).json(data);

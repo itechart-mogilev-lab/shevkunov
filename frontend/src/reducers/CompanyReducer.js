@@ -10,16 +10,8 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case COMPANIES_LOAD_SUCCESS: {
-      const { docs, total, page, pages, limit } = action.payload;
-      return {
-        docs,
-        total,
-        page,
-        pages,
-        limit
-      };
-    }
+    case COMPANIES_LOAD_SUCCESS:
+      return { ...action.payload };
     default:
       return state;
   }

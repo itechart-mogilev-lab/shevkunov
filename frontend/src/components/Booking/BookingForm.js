@@ -87,7 +87,9 @@ function BookingForm(props) {
     handleBlur,
     values,
     isAuthenticated,
-    company
+    company,
+    availableServices,
+    availableRegularity
   } = props;
   function isRoomError(roomName, value) {
     const room = touched[roomName];
@@ -96,6 +98,7 @@ function BookingForm(props) {
       room && room[value] && Boolean(roomError) && Boolean(roomError[value])
     );
   }
+
   return (
     <main className={classes.main}>
       <CssBaseline />
@@ -135,7 +138,7 @@ function BookingForm(props) {
                 onChange={handleChange}
                 error={touched.service && Boolean(errors.service)}
               >
-                {selectItem(values.availableServices)}
+                {selectItem(availableServices)}
               </Select>
               {Boolean(errors.service) && (
                 <FormHelperText id="component-error-text">
@@ -244,7 +247,7 @@ function BookingForm(props) {
                 name="regularity"
                 onChange={handleChange}
               >
-                {selectItem(values.availableRegularity)}
+                {selectItem(availableRegularity)}
               </Select>
             </FormControl>
             {values.regularity && values.regularity !== "One time" && (
