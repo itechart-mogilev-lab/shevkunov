@@ -2,29 +2,32 @@ import { string, object, ref, number, array } from "yup";
 
 const CompanySchema = object().shape({
   name: string()
-    .required()
+    .required("Name is required")
     .min(4)
     .max(50),
   description: string()
-    .required()
+    .required("Description is required")
     .min(50)
     .max(500),
-  email: string()
+  email: string("Email is required")
     .required()
     .email(),
   address: object().shape({
-    country: string().required(),
-    city: string().required(),
-    other: string().required()
+    country: string().required("Country is required"),
+    city: string().required("City is required"),
+    other: string().required("Other is required")
   }),
   password: string()
-    .required()
+    .required("Password is required")
     .min(6)
     .max(30)
-    .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/),
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/,
+      "Password must contains capital letter, digits and 6 and more characters"
+    ),
   confirmPassword: string()
-    .required()
-    .oneOf([ref("password")]),
+    .required("Confirm password is required")
+    .oneOf([ref("password"), null], "Passwords don't match"),
   rooms: object().shape({
     standart: object().shape({
       price: number()

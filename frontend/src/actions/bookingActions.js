@@ -23,12 +23,13 @@ export const setCompany = company => {
   };
 };
 
-export const sendOrder = values => dispatch => {
+export const sendOrder = values => (dispatch, getState) => {
+  const state = getState();
   dispatch({
     type: SEND_ORDER
   });
   axios
-    .post("/api/orders", values)
+    .post("/api/orders", { customer: state.auth.profile, ...values })
     .then(res => {
       dispatch({
         type: SEND_ORDER_SUCCESS

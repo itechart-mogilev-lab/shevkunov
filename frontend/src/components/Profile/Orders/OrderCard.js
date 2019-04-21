@@ -41,7 +41,6 @@ function OrderCard(props) {
     rejectOrder,
     email
   } = props;
-  console.log("PROPS", props);
   return (
     <Card className={classes.card}>
       <CardContent>

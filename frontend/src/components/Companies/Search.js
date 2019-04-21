@@ -8,7 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import { sortType, selectCity, selectService } from "../../helpers/enum";
-import { stringify } from "query-string";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const styles = theme => ({
   root: {
@@ -30,6 +30,12 @@ const styles = theme => ({
     background: "#e5e7ea",
     borderRadius: theme.shape.borderRadius,
     marginRight: theme.spacing.unit * 2,
+    margin: "20px 30px",
+    width: "80%"
+  },
+  filters: {
+    display: "flex",
+    justifyContent: "space-evenly",
     margin: "20px 30px",
     width: "80%"
   },
@@ -103,18 +109,21 @@ class SearchComponent extends Component {
             }}
           />
         </div>
-        <div>
+        <div className={classes.filters}>
           <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="sort">Sort</InputLabel>
             <Select value={sort} name="sort" onChange={handleChange}>
               {selectItem(sortType)}
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="city">City</InputLabel>
             <Select value={city} name="city" onChange={handleChange}>
               {selectItem(selectCity)}
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="service">Service</InputLabel>
             <Select value={service} name="service" onChange={handleChange}>
               {selectItem(selectService)}
             </Select>

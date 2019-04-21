@@ -77,7 +77,6 @@ schema.pre("update", function(next) {
 });
 
 schema.post("save", function(error, doc, next) {
-  console.log(error.name + " " + error.code);
   if (error.name === "MongoError" && error.code === 11000) {
     next(new Error("User already exist"));
   } else {

@@ -54,6 +54,7 @@ class CompaniesPageComponent extends Component {
           role={this.props.role}
           order={this.props.order}
           onClick={this.props.onClick}
+          showModal={this.props.showModal}
         />
       );
       pagination = (

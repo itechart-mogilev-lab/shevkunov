@@ -13,12 +13,11 @@ async function createReview(customerId, { rating, reviewText, company }) {
     const reviews = await Review.find({ company });
     const rattingCompany = averageRating(reviews);
     await Company.updateOne(
-    { _id: company },
-    { $set: { ratting: rattingCompany } }
+      { _id: company },
+      { $set: { ratting: rattingCompany } }
     );
     return review;
   } catch (err) {
-    console.log(err);
     throw err;
   }
 }

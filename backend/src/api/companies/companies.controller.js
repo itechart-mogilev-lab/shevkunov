@@ -27,6 +27,11 @@ module.exports.getCompanyById = (req, res, next) => {
     .catch(err => next(err));
 };
 
-module.exports.test = res => {
-  console.log("test");
+module.exports.blockCompany = (req, res, next) => {
+  companyService
+    .block(req.params.id, req.body)
+    .then(data => {
+      res.status(httpStatus.OK).json(data);
+    })
+    .catch(err => next(err));
 };

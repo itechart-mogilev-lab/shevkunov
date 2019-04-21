@@ -49,20 +49,44 @@ async function getCompanyById(_id) {
   }
 }
 
-async function editCompanyProfile(_id, { data }) {
-  return await Company.findByIdAndUpdate(_id, {
-    $set: {
-      username: data.username,
-      email: data.email,
-      phoneNumber: data.phoneNumber
+async function editCompanyProfile(
+  _id,
+  { name, email, description, address, rooms, services }
+) {
+  try {
+    let company;
+    if (!oldPassword || oldPassword === "") {
+      company = await Company.findByIdAndUpdate(_id, {
+        $set: {
+          name: name,
+          email: email,
+          description: description,
+          address: address,
+          rooms: rooms,
+          services: services
+        }
+      });
+    } else {
+      company = await Company.findById(_id)
+        .select("password")
+        .exec();
+      const success = await company.comparePassword(oldPassword);
+      if (success === false) throw new Error("Old password is incorrect");
+      if (newPassword === oldPassword) throw new Error("Passwords are equal");
+      company.password = newPassword;
+      await company.save(err => {
+        if (err) throw err;
+      });
     }
-  });
+  } catch (err) {
+    throw err;
+  }
 }
 
-async function block({ reason, blocked }, _id) {
+async function block(_id, { reason, blocked }) {
   if (blocked) {
     const company = await Company.findByIdAndUpdate(_id, {
-      $set: { status: userStatus.Blocked, block_comment: `${reason}` }
+      $set: { status: usersStatus.Blocked, block_comment: `${reason}` }
     });
     Company.findById(_id, function(err, company) {
       mailService.gmailSend(
@@ -72,7 +96,7 @@ async function block({ reason, blocked }, _id) {
     });
   } else {
     const company = await Company.findByIdAndUpdate(_id, {
-      $set: { status: userStatus.Verified }
+      $set: { status: usersStatus.Verified }
     });
     Company.findById(_id, function(err, company) {
       mailService.gmailSend(company.email, mailForUnblocked(company.username));

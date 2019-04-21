@@ -14,6 +14,9 @@ export default function Profile(props) {
           <Link to="/profile/edit">Edit profile</Link>
         </Button>
         <Button size="small" color="primary">
+          <Link to="/profile/change_password">Change password</Link>
+        </Button>
+        <Button size="small" color="primary">
           <Link to="/orders">My orders</Link>
         </Button>
       </CardActions>

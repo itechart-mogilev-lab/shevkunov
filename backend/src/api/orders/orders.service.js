@@ -4,7 +4,10 @@ const Company = require("../../models/company.model");
 const User = require("../../models/user.model");
 const { countPrice, countTime } = require("../../services/price.service");
 const mailService = require("../../services/mail.service");
-const { mailForNewOrder } = require("../../config/mail");
+const {
+  mailForNewOrder,
+  mailForChangingStatusOrder
+} = require("../../config/mail");
 
 async function createOrder(
   user,
@@ -28,7 +31,6 @@ async function createOrder(
   const price = countPrice(coef, companySchema.rooms, roomsCount);
   const cleanTime = countTime(coef, companySchema.rooms, roomsCount);
   let customer_id = null;
-  console.log("USER:", user);
   if (user) customer_id = user._id;
   const order = new Order({
     customer: customer_id,
@@ -53,7 +55,6 @@ async function createOrder(
     );
     return true;
   } catch (err) {
-    console.log(err);
     throw err;
   }
 }
@@ -76,20 +77,52 @@ async function getOrders(userId, { page, service, status }) {
 }
 
 async function acceptOrder(id) {
-  await Order.findByIdAndUpdate(id, {
+  const order = await Order.findByIdAndUpdate(id, {
     $set: {
       status: Status.Accepted
     }
   });
+  const { customer, _id } = order;
+  const user = await User.findById(customer);
+  let userEmail;
+  let name;
+  if (user === null) {
+    userEmail = order.email;
+    name = "";
+  } else {
+    const userObj = user.toObject();
+    userEmail = userObj.email;
+    name = userObj.firstname;
+  }
+  mailService.gmailSend(
+    userEmail,
+    mailForChangingStatusOrder(name, _id, Status.Accepted)
+  );
   return true;
 }
 
 async function rejectOrder(id) {
-  await Order.findByIdAndUpdate(id, {
+  const order = await Order.findByIdAndUpdate(id, {
     $set: {
       status: Status.Canceled
     }
   });
+  const { customer, _id } = order;
+  const user = await User.findById(customer);
+  let userEmail;
+  let name;
+  if (user === null) {
+    userEmail = order.email;
+    name = "";
+  } else {
+    const userObj = user.toObject();
+    userEmail = userObj.email;
+    name = userObj.firstname;
+  }
+  mailService.gmailSend(
+    userEmail,
+    mailForChangingStatusOrder(name, _id, Status.Canceled)
+  );
   return true;
 }
 

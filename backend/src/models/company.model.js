@@ -12,8 +12,7 @@ const schema = new mongoose.Schema(
     // logoUrl: {type: String, required: true, get: v => `${root}${v}`},
     name: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     },
     description: {
       type: String,
@@ -95,12 +94,6 @@ const schema = new mongoose.Schema(
   }
 );
 
-schema.index({
-  name: "text",
-  "address.country": "text",
-  "services.name": "text"
-});
-
 schema.pre("save", function(next) {
   bcrypt.hash(this.password, 10, (err, hash) => {
     this.password = hash;
@@ -126,7 +119,6 @@ schema.post("save", function(error, doc, next) {
 schema.methods.comparePassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, this.password, (err, success) => {
-      console.log(success);
       if (err) return reject(err);
       return resolve(success);
     });

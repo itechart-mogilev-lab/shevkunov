@@ -40,7 +40,6 @@ function googleStrategy() {
         passReqToCallback: true
       },
       (req, accessToken, refreshToken, profile, done) => {
-        console.log(profile.id);
         User.findOne({ googleId: profile.id }).then(user => {
           if (user) {
             return done(null, user);
@@ -54,7 +53,6 @@ function googleStrategy() {
             })
               .save()
               .then(user => {
-                console.log(`new user: ${user}`);
                 done(null, user);
               });
           }

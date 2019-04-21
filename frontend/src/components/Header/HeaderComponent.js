@@ -50,19 +50,12 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Home
+              Cleaning Service
             </Typography>
             {isAuthenticated && (
-              <Link to="/orders">
-                <Button color="inherit">My Orders</Button>
+              <Link to="/profile">
+                <Button color="inherit">My Profile</Button>
               </Link>
             )}
             <Link to="/companies">

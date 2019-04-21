@@ -7,7 +7,7 @@ const Role = require("../../enums/roles.enum");
 
 router.get("/", controller.get);
 router.get("/:id", controller.getCompanyById);
+router.put("/:id/block", controller.blockCompany);
 router.put("/edit", permit(Role.Company), controller.editCompanyProfile);
-router.get("/test", controller.test);
 
 module.exports = router;

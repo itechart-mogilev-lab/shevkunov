@@ -84,7 +84,6 @@ const BookingModal = props => {
     values.roomsCount
   );
   const newValues = { company: company._id, ...values };
-  //console.log(newValues);
   return (
     <Dialog
       open={true}

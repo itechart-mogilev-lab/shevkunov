@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -13,29 +12,6 @@ import { TextField } from "formik-material-ui";
 import { selectService } from "../../../../helpers/enum";
 
 const styles = theme => ({
-  main: {
-    width: "auto",
-    display: "flex",
-    justifyContent: "center",
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing.unit
@@ -56,13 +32,16 @@ const styles = theme => ({
     flexDirection: "column"
   },
   formControl: {
-    width: "180px"
+    width: "180px",
+    marginRight: "20px"
   },
   smallBtn: {
-    marginTop: "20px",
-    width: "100%",
-    maxWidth: "360px",
+    width: "100px",
     margin: "auto"
+  },
+  formTitle: {
+    marginBottom: 0,
+    marginLeft: "40px"
   }
 });
 
@@ -118,6 +97,15 @@ export const MyForm = props => {
                   }
                 />
               </FormControl>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={() => arrayHelpers.remove(index)}
+                className={classes.smallBtn}
+              >
+                Remove
+              </Button>
               {/* Remove this vehicle */}
             </div>
           ))}
@@ -128,7 +116,7 @@ export const MyForm = props => {
             variant="contained"
             color="primary"
             onClick={() => arrayHelpers.push({ name: "", coefficient: "" })}
-            className={classes.smallBtn}
+            fullWidth
           >
             Add Service
           </Button>

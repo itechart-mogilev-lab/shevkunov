@@ -3,7 +3,6 @@ import { getCompaniesList } from "../../actions/companyActions";
 import { setCompany } from "../../actions/bookingActions";
 import { showModal } from "../../actions/modalActions";
 import CompaniesPageComponent from "../../components/Companies/CompaniesPage";
-import { stat } from "fs";
 
 const mapStateToProps = state => ({
   docs: state.companiesList.docs,

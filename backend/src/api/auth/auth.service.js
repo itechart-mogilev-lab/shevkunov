@@ -4,6 +4,7 @@ const User = require("../../models/user.model");
 const Company = require("../../models/company.model");
 const usersStatus = require("../../enums/users.status.enum");
 const mailService = require("../../services/mail.service");
+const { middlePriceForCompany } = require("../../services/price.service");
 const { mailForVerify } = require("../../config/mail");
 
 async function authenticate({ email, password }) {
@@ -97,20 +98,20 @@ async function confirmationUser({ confirmationCode }, verifyToken) {
   let schema;
   data = await User.findById(_id);
   schema = User;
-    if (data === null) {
-      data = await Company.findById(_id)
-      schema = Company
-    }
-    if (data === null) throw new Error("User or company not found");
-  console.log(data);
+  if (data === null) {
+    data = await Company.findById(_id);
+    schema = Company;
+  }
+  if (data === null) throw new Error("User or company not found");
   let newNumberOfTryies = 0;
   const userObj = data.toObject();
   if (userObj.verifyCode !== confirmationCode) {
     if (userObj.numberOfTryies !== 5) {
-      console.log(userObj.numberOfTryies);
       newNumberOfTryies = userObj.numberOfTryies + 1;
-      console.log(newNumberOfTryies);
-      await schema.updateOne({"_id": _id}, { $set: { numberOfTryies: newNumberOfTryies } })
+      await schema.updateOne(
+        { _id: _id },
+        { $set: { numberOfTryies: newNumberOfTryies } }
+      );
     } else {
       schema.findByIdAndDelete(_id).exec();
       throw new Error(
@@ -119,13 +120,15 @@ async function confirmationUser({ confirmationCode }, verifyToken) {
     }
     throw new Error("Verify code incorrect");
   } else {
-    await schema.updateOne({"_id": _id}, { $set: { status: usersStatus.Verified } });
+    await schema.updateOne(
+      { _id: _id },
+      { $set: { status: usersStatus.Verified } }
+    );
   }
   return true;
 }
 
 async function authSocial(data) {
-  console.log(data);
   const token = jwt.sign({ id: data._id, role: data.role }, config.jwt.secret, {
     expiresIn: config.jwt.expiration
   });
@@ -138,7 +141,7 @@ async function registerCompany(
   host
 ) {
   try {
-    const price = 0.5;
+    const price = middlePriceForCompany(rooms, services);
     const rndCode = getRandomInt(1000, 9999);
     const company = new Company({
       name,
@@ -149,7 +152,9 @@ async function registerCompany(
       role,
       services,
       price,
-      rooms
+      rooms,
+      verifyCode: rndCode,
+      numberOfTryies: 0
     });
     await company.save();
     const companyObj = company.toObject();

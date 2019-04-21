@@ -39,3 +39,9 @@ module.exports.mailForNewOrder = (name, id) => {
   const subject = "Новый заказ";
   return { content, subject };
 };
+
+module.exports.mailForChangingStatusOrder = (name, id, status) => {
+  const content = `${name}, ваш статус заказа с id: ${id} изменился на ${status}`;
+  const subject = "Сменился статус заказа";
+  return { content, subject };
+};

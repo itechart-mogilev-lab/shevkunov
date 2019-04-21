@@ -25,7 +25,6 @@ module.exports.registerUser = (req, res, next) => {
   authService
     .registerUser(req.body, Role.User, req.headers.host)
     .then(result => {
-      console.log(result);
       result
         ? res.status(httpStatus.CREATED).json(result)
         : res.status(httpStatus.BAD_REQUEST).json({ message: "BAD REQUEST" });
