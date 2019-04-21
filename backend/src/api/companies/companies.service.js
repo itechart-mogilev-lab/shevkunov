@@ -1,7 +1,7 @@
 const Company = require("../../models/company.model");
 const usersStatus = require("../../enums/users.status.enum");
 
-async function getCompanies({ service, companyName, sort, city }) {
+async function getCompanies({ service, companyName, sort, city, page }) {
   switch (sort) {
     case "price_asc":
       sort = "price";
@@ -26,7 +26,7 @@ async function getCompanies({ service, companyName, sort, city }) {
   }
   const options = {
     // page: parseInt(page, 10) || 1,
-    page: 1,
+    page: page || 1,
     // limit: parseInt(perPage, 10) || 10,
     limit: 10,
     select: "name address rating services workPlan rooms price popularity",

@@ -16,6 +16,8 @@ import OrdersPageComponent from "./containers/Profile/OrdersPageContainer";
 import BookingComponent from "./containers/Booking/BookingContainer";
 import ModalContainer from "./containers/Modal/ModalContainer";
 import ReviewContainer from "./containers/Modal/ReviewContainer";
+import NotFound from "./components/NotFound";
+import { PrivateRoute } from "./components/hoc/PrivateRoute";
 import { initializePreviousToken } from "./helpers/authFromLocalStorage";
 import "./styles/styles.css";
 
@@ -23,6 +25,7 @@ initializePreviousToken(store);
 
 class App extends Component {
   render() {
+    const isAuth = store.getState().auth.isAuthenticated;
     return (
       <Provider store={store}>
         <Router>
@@ -33,20 +36,30 @@ class App extends Component {
             />
             <Header />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={CompaniesPageComponent} />
               <Route exact path="/login" component={SignInComponent} />
               <Route exact path="/register" component={RegisterComponent} />
               <Route exact path="/confirmation" component={VerifyComponent} />
-              <Route exact path="/profile" component={ProfileComponent} />
-              <Route
+              <PrivateRoute
+                exact
+                path="/profile"
+                component={ProfileComponent}
+                redirect="/register"
+                shouldRedirect={isAuth}
+              />
+              <PrivateRoute
                 exact
                 path="/profile/edit"
                 component={EditProfileComponent}
+                redirect="/register"
+                shouldRedirect={isAuth}
               />
-              <Route
+              <PrivateRoute
                 exact
                 path="/register-company"
                 component={RegisterCompanyComponent}
+                redirect="/profile"
+                shouldRedirect={!isAuth}
               />
               <Route
                 exact
@@ -58,8 +71,15 @@ class App extends Component {
                 path={`/companies/:id`}
                 component={CompanyMainPageContainer}
               />
-              <Route exact path="/orders" component={OrdersPageComponent} />
+              <PrivateRoute
+                exact
+                path="/orders"
+                component={OrdersPageComponent}
+                redirect="/"
+                shouldRedirect={isAuth}
+              />
               <Route exact path="/booking" component={BookingComponent} />
+              <Route component={NotFound} />
             </Switch>
             <ModalContainer />
             <ReviewContainer />

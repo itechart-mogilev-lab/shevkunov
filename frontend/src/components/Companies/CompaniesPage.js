@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import CompaniesList from "../../containers/Companies/CompaniesListContainer";
+import CompaniesList from "./CompanyList";
 import { withRouter } from "react-router-dom";
 import Search from "./Search";
+import Pagination from "../common/Pagination";
+import { WithPagination } from "../hoc/WithPagination";
 
 const styles = theme => ({
   companies: {
@@ -43,15 +45,38 @@ class CompaniesPageComponent extends Component {
 
   render() {
     let list = <p>Not companies found</p>;
-    const { classes, total, docs, pages, page } = this.props;
+    let pagination = null;
+    const { classes, total, pages, page } = this.props;
     if (total > 0) {
-      list = <CompaniesList />;
+      list = (
+        <CompaniesList
+          docs={this.props.docs}
+          role={this.props.role}
+          order={this.props.order}
+          onClick={this.props.onClick}
+        />
+      );
+      pagination = (
+        <Pagination
+          pages={pages}
+          handlePageClick={this.props.handlePageClick}
+          page={page - 1}
+        />
+      );
     }
-    //console.log(this.props);
     return (
       <div className={classes.companies}>
-        <Search />
+        <Search
+          city={this.props.city}
+          sort={this.props.sort}
+          companyName={this.props.companyName}
+          service={this.props.service}
+          handleChange={this.props.handleChange}
+          handleFilter={this.props.handleFilter}
+          queryCreator={this.props.queryCreator}
+        />
         {list}
+        {pagination}
       </div>
     );
   }
@@ -65,4 +90,6 @@ CompaniesPageComponent.propTypes = {
   getCompaniesList: PropTypes.func.isRequired
 };
 
-export default withRouter(withStyles(styles)(CompaniesPageComponent));
+export default withRouter(
+  withStyles(styles)(WithPagination(CompaniesPageComponent))
+);

@@ -1,4 +1,8 @@
-import { ORDERS_LOAD_SUCCESS, ORDERS_REQUEST } from "../actions/actionTypes";
+import {
+  ORDERS_LOAD_SUCCESS,
+  ORDERS_REQUEST,
+  RESET_ORDERS
+} from "../actions/actionTypes";
 
 const initialState = {
   docs: [],
@@ -30,6 +34,9 @@ export default function(state = initialState, action) {
           loading: true
         }
       };
+    }
+    case RESET_ORDERS: {
+      return initialState;
     }
     default:
       return state;

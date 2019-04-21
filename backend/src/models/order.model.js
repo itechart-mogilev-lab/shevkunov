@@ -7,8 +7,7 @@ const schema = new mongoose.Schema(
   {
     customer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true
+      ref: "User"
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,
@@ -29,6 +28,7 @@ const schema = new mongoose.Schema(
     status: { type: String, required: true, lowercase: true },
     price: { type: SchemaTypes.Double, required: true },
     cleanTime: { type: Number, required: true },
+    email: { type: String },
     cancelMessage: { type: String }
   },
   {

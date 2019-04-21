@@ -70,50 +70,22 @@ const styles = theme => ({
 function selectItem(options) {
   return options.map(option => (
     <MenuItem key={option.value} value={option.value}>
-      {option.name}
+      {option.name || option.value}
     </MenuItem>
   ));
 }
 
 class SearchComponent extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      sort: "",
-      city: "",
-      companyName: "",
-      service: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.queryCreator = this.queryCreator.bind(this);
-  }
-
-  queryCreator(sorting) {
-    for (let key in sorting) {
-      if (sorting[key] === "" || sorting[key] === null) {
-        delete sorting[key];
-      }
-    }
-    return stringify(sorting);
-  }
-
-  handleSearch() {
-    const path = this.props.location.pathname;
-    const query = { ...this.state };
-    const queryStringified = this.queryCreator(query);
-    this.props.history.push(`${path}?${queryStringified}`);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { classes } = this.props;
-    const { sort, city, companyName, service } = this.state;
+    const {
+      classes,
+      sort,
+      city,
+      companyName,
+      service,
+      handleChange,
+      handleFilter
+    } = this.props;
     return (
       <div className={classes.root}>
         <div className={classes.search}>
@@ -124,7 +96,7 @@ class SearchComponent extends Component {
             placeholder="Search…"
             name="companyName"
             value={companyName}
-            onChange={this.handleChange}
+            onChange={handleChange}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput
@@ -133,17 +105,17 @@ class SearchComponent extends Component {
         </div>
         <div>
           <FormControl className={classes.formControl}>
-            <Select value={sort} name="sort" onChange={this.handleChange}>
+            <Select value={sort} name="sort" onChange={handleChange}>
               {selectItem(sortType)}
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <Select value={city} name="city" onChange={this.handleChange}>
+            <Select value={city} name="city" onChange={handleChange}>
               {selectItem(selectCity)}
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <Select value={service} name="service" onChange={this.handleChange}>
+            <Select value={service} name="service" onChange={handleChange}>
               {selectItem(selectService)}
             </Select>
           </FormControl>
@@ -151,7 +123,7 @@ class SearchComponent extends Component {
             size="small"
             variant="contained"
             color="primary"
-            onClick={this.handleSearch}
+            onClick={handleFilter}
           >
             Найти
           </Button>

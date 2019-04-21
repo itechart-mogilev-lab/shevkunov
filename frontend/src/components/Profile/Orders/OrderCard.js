@@ -38,9 +38,10 @@ function OrderCard(props) {
     role,
     _id,
     acceptOrder,
-    rejectOrder
+    rejectOrder,
+    email
   } = props;
-
+  console.log("PROPS", props);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -49,7 +50,11 @@ function OrderCard(props) {
         </Typography>
         {role !== "user" && (
           <Typography color="textSecondary" gutterBottom>
-            Customer: {customer.firstname}
+            Customer:{" "}
+            {(customer &&
+              (customer.firstname || customer.surname || customer.email)) ||
+              email ||
+              ""}
           </Typography>
         )}
         <Typography color="textSecondary" gutterBottom>

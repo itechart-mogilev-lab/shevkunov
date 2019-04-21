@@ -17,12 +17,13 @@ const styles = theme => ({
   }
 });
 
-const CompanyList = ({ companiesList, onClick, classes, order, showModal }) => (
+const CompanyList = ({ docs, onClick, classes, order, showModal, role }) => (
   <div className={classes.table}>
-    {companiesList.map(company => (
+    {docs.map(company => (
       <CompanyCard
         key={company._id}
         order={order}
+        role={role}
         {...company}
         onClick={() => onClick(company)}
         showModal={showModal}

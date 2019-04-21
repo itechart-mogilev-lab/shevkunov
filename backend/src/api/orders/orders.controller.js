@@ -9,7 +9,7 @@ module.exports.get = (req, res) => {
 };
 module.exports.post = (req, res) => {
   service
-    .createOrder(req.user._id, req.body)
+    .createOrder(req.user, req.body)
     .then(res.status(httpStatus.CREATED).json("Created"))
     .catch(err => next(err));
 };

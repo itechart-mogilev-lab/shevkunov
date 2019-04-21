@@ -7,7 +7,7 @@ const mailService = require("../../services/mail.service");
 const { mailForNewOrder } = require("../../config/mail");
 
 async function createOrder(
-  _id,
+  user,
   {
     company,
     address,
@@ -16,7 +16,8 @@ async function createOrder(
     date,
     startTime,
     service,
-    roomsCount
+    roomsCount,
+    email
   }
 ) {
   const companySchema = await Company.findOne({
@@ -26,9 +27,11 @@ async function createOrder(
   const coef = companySchema.services.find(o => o.name === service).coefficient;
   const price = countPrice(coef, companySchema.rooms, roomsCount);
   const cleanTime = countTime(coef, companySchema.rooms, roomsCount);
-
+  let customer_id = null;
+  console.log("USER:", user);
+  if (user) customer_id = user._id;
   const order = new Order({
-    customer: _id,
+    customer: customer_id,
     company,
     address,
     regularity,
@@ -38,6 +41,7 @@ async function createOrder(
     service,
     roomsCount,
     price,
+    email,
     cleanTime,
     status: Status.Pending
   });

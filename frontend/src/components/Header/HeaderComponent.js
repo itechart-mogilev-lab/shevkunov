@@ -60,9 +60,11 @@ class Header extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Home
             </Typography>
-            <Link to="/orders">
-              <Button color="inherit">My Orders</Button>
-            </Link>
+            {isAuthenticated && (
+              <Link to="/orders">
+                <Button color="inherit">My Orders</Button>
+              </Link>
+            )}
             <Link to="/companies">
               <Button color="inherit">Companies</Button>
             </Link>

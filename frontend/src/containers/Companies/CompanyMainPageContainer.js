@@ -12,7 +12,8 @@ import { withRouter } from "react-router-dom";
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   company: state.company.details.data,
-  reviews: state.company.reviews
+  reviews: state.company.reviews,
+  role: state.auth.profile && state.auth.profile.role
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {

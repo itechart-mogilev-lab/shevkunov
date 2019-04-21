@@ -26,7 +26,7 @@ const styles = {
 };
 
 function CompanyCard(props) {
-  const { classes, order, onClick, showModal } = props;
+  const { classes, order, onClick, showModal, role } = props;
   const { name, address, _id, rating } = props;
 
   const linkBooking = <Link to={`/booking`}>Book service</Link>;
@@ -57,9 +57,11 @@ function CompanyCard(props) {
         <Button size="small">
           <Link to={`/companies/${_id}`}>Learn More</Link>
         </Button>
-        <Button size="small" onClick={action}>
-          {link}
-        </Button>
+        {role !== "company" && (
+          <Button size="small" onClick={action}>
+            {link}
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

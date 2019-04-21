@@ -37,39 +37,14 @@ class CompanyMainPage extends Component {
     this.props.setCompany(this.props.company);
   }
 
-  /*queryCreator(sorting) {
-    for (let key in sorting) {
-      if (sorting[key] === "" || sorting[key] === null) {
-        delete sorting[key];
-      }
-    }
-    return stringify(sorting);
-  }
-
-  loadMore() {
-    this.setState({
-      page: this.state.page + 1
-    });
-    const path = this.props.location.pathname;
-    const query = { ...this.state };
-    console.log("QUERY", query);
-    const queryStringified = this.queryCreator(query);
-    this.props.history.push(`${path}?${queryStringified}`);
-    this.props.getCompanyReviews(
-      this.props.match.params.id,
-      this.props.location.search
-    );
-  }
-*/
   render() {
-    //console.log("PROPS", this.props);
-    //console.log("STATE:", this.state.page);
     const {
       classes,
       company,
       reviews,
       openReviewModal,
-      isAuthenticated
+      isAuthenticated,
+      role
     } = this.props;
 
     if (company)
@@ -81,10 +56,12 @@ class CompanyMainPage extends Component {
         />,
 
         <CardActions key="actions">
-          <Button size="small" color="primary" onClick={this.handleClick}>
-            <Link to="/booking">Book service</Link>
-          </Button>
-          {isAuthenticated && (
+          {role !== "company" && (
+            <Button size="small" color="primary" onClick={this.handleClick}>
+              <Link to="/booking">Book service</Link>
+            </Button>
+          )}
+          {isAuthenticated && role !== "company" && (
             <Button size="small" color="primary" onClick={openReviewModal}>
               <p to="/review">Write a review</p>
             </Button>

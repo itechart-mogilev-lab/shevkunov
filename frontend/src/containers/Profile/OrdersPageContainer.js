@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
   orders: state.ordersList.docs,
   pages: state.ordersList.pages,
   page: state.ordersList.page,
-  role: state.auth.profile.role
+  role: state.auth.profile.role,
+  services: state.auth.profile.services
 });
 
 const mapDispatchToProps = dispatch => {
